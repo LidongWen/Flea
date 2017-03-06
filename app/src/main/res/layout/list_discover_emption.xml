@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp">
+
+    <ImageView
+        android:id="@+id/dis_right_sd"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/shape_head_portrait" />
+
+    <TextView
+        android:id="@+id/dis_right_classify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/dis_right_sd"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/dis_right_sd"
+        android:layout_toRightOf="@+id/dis_right_sd"
+        android:textColor="@color/blue_m"
+        tools:text="[求购：书籍]" />
+
+    <TextView
+        android:id="@+id/dis_right_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/dis_right_classify"
+        android:layout_marginLeft="5dp"
+        android:layout_toEndOf="@+id/dis_right_classify"
+        android:layout_toRightOf="@+id/dis_right_classify"
+        android:textColor="@color/black_h"
+        tools:text="西方求败" />
+
+    <TextView
+        android:id="@+id/dis_right_describe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/dis_right_sd"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:ellipsize="end"
+        android:maxLength="20"
+        android:textSize="16sp"
+        tools:text="我想淘一本《失控》" />
+
+    <TextView
+        android:id="@+id/textView_purchase_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/dis_right_sd"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:text="下午3:54"
+        android:textColor="@color/black_xh"
+        android:textSize="10sp" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignEnd="@+id/textView_purchase_time"
+        android:layout_alignRight="@+id/textView_purchase_time"
+        android:layout_below="@+id/dis_right_describe"
+        android:layout_marginTop="10dp" />
+
+</RelativeLayout>
