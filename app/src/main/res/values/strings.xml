@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Flea</string>
+
+    <string-array name="classify">
+        <item>数码</item>
+        <item>电器</item>
+        <item>日常用品</item>
+        <item>书籍</item>
+        <item>服饰</item>
+        <item>体育用品</item>
+        <item>其他</item>
+    </string-array>
 </resources>

@@ -1,18 +1,18 @@
-package com.wenld.flea;
+package com.wenld.flea.ui;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.wenld.flea.R;
 import com.wenld.flea.base.BaseActivity;
-import com.wenld.flea.fragment.discover.DiscoverFragment;
-import com.wenld.flea.fragment.fenlei.ClassifyFragment;
-import com.wenld.flea.fragment.home.HomeFragment;
-import com.wenld.flea.tab.TabEntity;
+import com.wenld.flea.ui.fragment.discover.DiscoverFragment;
+import com.wenld.flea.ui.fragment.fenlei.ClassifyFragment;
+import com.wenld.flea.ui.fragment.home.HomeFragment;
+import com.wenld.flea.ui.tab.TabEntity;
 
 import java.util.ArrayList;
 
@@ -45,21 +45,23 @@ public class MainActivity extends BaseActivity {
 
         vp_2.setAdapter(mFragmentPagerAdapter);
         tl_2.setTabData(mTabEntities);
-        tl_2.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelect(int position) {
-                vp_2.setCurrentItem(position);
-            }
 
-            @Override
-            public void onTabReselect(int position) {
-                if (position == 0) {
-//                    mTabLayout_2.showMsg(0, mRandom.nextInt(100) + 1);
-//                    UnreadMsgUtils.show(mTabLayout_2.getMsgView(0), mRandom.nextInt(100) + 1);
-                }
-            }
-        });
+        vp_2.setCurrentItem(0);
+        vp_2.setOffscreenPageLimit(mFragments.size());
+    }
 
+    @Override
+    protected void initTitle() {
+
+    }
+
+    @Override
+    protected void setContentView() {
+        setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    protected void initListener() {
         vp_2.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -76,18 +78,18 @@ public class MainActivity extends BaseActivity {
 
             }
         });
+        tl_2.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelect(int position) {
+                vp_2.setCurrentItem(position);
+            }
 
-        vp_2.setCurrentItem(0);
-    }
-
-    @Override
-    protected void initTitle() {
-
-    }
-
-    @Override
-    protected void setContentView() {
-        setContentView(R.layout.activity_main);
+            @Override
+            public void onTabReselect(int position) {
+                if (position == 0) {
+                }
+            }
+        });
     }
 
     private FragmentPagerAdapter mFragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -114,27 +116,6 @@ public class MainActivity extends BaseActivity {
         }
 
     };
-
-    private class MyPagerAdapter extends FragmentPagerAdapter {
-        public MyPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragments.size();
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mTitles[position];
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragments.get(position);
-        }
-    }
 
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private String[] mTitles = {"首页", "消息", "联系人", "更多"};

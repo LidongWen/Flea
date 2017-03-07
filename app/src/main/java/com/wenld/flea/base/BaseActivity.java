@@ -32,6 +32,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         // 初始化数据
         initData();
+
+        //
+        initListener();
     }
 
     // 初始化数据
@@ -45,6 +48,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     // 设置布局layout
     protected abstract void setContentView();
+    protected abstract void initListener();
 
 
     /**

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.home.SearchActivity">
+    tools:context=".ui.fragment.home.SearchActivity">
 
 
     <RelativeLayout
@@ -28,82 +29,25 @@
             android:layout_marginTop="10dp"
             android:text="大家都在搜：" />
 
-        <TextView
-            android:id="@+id/textView16"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView15"
-            android:layout_alignStart="@+id/textView15"
-            android:layout_below="@+id/textView15"
-            android:layout_marginLeft="31dp"
-            android:layout_marginStart="31dp"
-            android:layout_marginTop="5dp"
-            android:onClick="clickTaoZiHai"
-            android:text="涛自嗨"
-            android:textColor="@color/blue_m" />
-
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/textView16"
-            android:layout_toEndOf="@+id/textView15"
-            android:layout_toRightOf="@+id/textView15"
-            android:onClick="clickTaoZiHai"
-            android:text="刘谦"
-            android:textColor="@color/blue_m" />
-
-        <TextView
-            android:id="@+id/textView18"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/textView17"
-            android:layout_marginLeft="14dp"
-            android:layout_marginStart="14dp"
-            android:layout_toEndOf="@+id/textView17"
-            android:layout_toRightOf="@+id/textView17"
-            android:onClick="clickTaoZiHai"
-            android:text="泰迪"
-            android:textColor="@color/blue_m" />
-
-        <TextView
-            android:id="@+id/textView14"
+        <com.wenld.flea.view.tagview.TagFlowLayout
+            android:id="@+id/id_upload_tag_layout"
             android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textView16"
-            android:layout_marginTop="19dp"
-            android:background="@color/black_h" />
+            android:layout_height="@dimen/value_60"
+            android:layout_below="@+id/textView15"
+            android:padding="4dp"
+            app:max_select="1" />
 
-        <TextView
-            android:id="@+id/textView19"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView15"
-            android:layout_alignStart="@+id/textView15"
-            android:layout_below="@+id/textView14"
-            android:layout_marginTop="14dp"
-            android:text="搜索历史：" />
 
-        <ListView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/listView_search"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/include"
-            android:visibility="invisible" />
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/id_upload_tag_layout"
+            android:background="@color/white" />
 
-        <ListView
-            android:id="@+id/listView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView16"
-            android:padding="5dp"
-            android:layout_alignStart="@+id/textView16"
-            android:layout_below="@+id/textView19"
-            android:divider="@android:color/transparent" />
 
     </RelativeLayout>
 </RelativeLayout>

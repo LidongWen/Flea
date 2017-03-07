@@ -1,37 +1,25 @@
 package com.wenld.flea.bean;
 
-import com.google.gson.annotations.Expose;
-
-import java.io.Serializable;
-
 /**
  * 物品实体类
  */
-public class Goods  implements Serializable {
+public class Goods {
 
-    @Expose
     private String goods_id;    //自定义的物品id
 
-    @Expose
     private String title;        //名字
-    @Expose
     private float price;        //价格
-    @Expose
     private String describe;    //描述
-    @Expose
     private String userId;      //用户id
-    @Expose
     private String classify;    //分类
-    @Expose
     private String contact;     //描述
-    @Expose
     private String time;           //时间
-    @Expose
+
     private int flag;            //1：出售		0：求购
-    @Expose
+
     private String userName;     //用户名
 
-    @Expose
+
     private String pic_location;    //图片地址
 
     public Goods() {

@@ -1,19 +1,16 @@
-package com.wenld.flea.fragment.home;
+package com.wenld.flea.ui.fragment.home;
 
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.wenld.baselib.fragment.BaseLazyFragment;
 import com.wenld.flea.R;
 import com.wenld.flea.bean.Goods;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -25,32 +22,23 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseLazyFragment {
 
     RecyclerView recyclerView;
     CommonAdapter adapter;
     ArrayList<Goods> data = new ArrayList<>();
-
     ImageView imageView;
-//    public Handler handler = new MyHandler();
 
     public HomeFragment() {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        return inflater.inflate(R.layout.fragment_home, container, false);
+    protected int getContentViewLayoutID() {
+        return R.layout.fragment_home;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        data.add(new Goods());
-        /**
-         * recycler设置
-         */
+    protected void initViewsAndEvents(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_home);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, GridLayoutManager.VERTICAL));
 
@@ -78,5 +66,25 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    protected void DetoryViewAndThing() {
+
+    }
+    @Override
+    protected void onFirstUserVisible() {
+        data.add(new Goods());
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onUserVisible() {
+
+    }
+    @Override
+    protected void onUserInvisible() {
+
+    }
+
 }
 

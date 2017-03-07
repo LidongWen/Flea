@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"
+        android:popupTheme="@style/Theme.AppCompat.Light"
+        android:titleTextColor="@color/white" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@+id/toolbar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:onClick="returnActivity"
+        android:src="@drawable/activity_return" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView5"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/imageView5"
+        android:layout_toRightOf="@+id/imageView5"
+        android:onClick="returnActivity"
+        android:text="出售商品"
+        android:textColor="@color/white"
+        android:textSize="19sp" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView10"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:onClick="clickSure"
+        android:text="提交"
+        android:textColor="@color/white"
+        android:textSize="19sp" />
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/imageView7"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/toolbar"
+        android:onClick="clickAddPicture"
+        android:elevation="2dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_add_white" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView7"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:text="商品名称："
+        android:textColor="@color/black_h"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/textView21_edit_sale_title"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView7"
+        android:layout_toEndOf="@+id/textView20"
+        android:hint="一缕阳光"
+        android:text="一缕阳光"
+        android:layout_toRightOf="@+id/textView20"
+        android:textColor="@color/black_h" />
+
+    <EditText
+        android:id="@+id/textView23_edit_sale_price"
+        android:hint="19"
+        android:text="19"
+        android:layout_width="70dp"
+        android:inputType="number"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView29_edit_sale_describe"
+        android:layout_alignRight="@+id/textView29_edit_sale_describe"
+        android:layout_below="@+id/imageView7"
+        android:textColor="@color/green_m" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView20"
+        android:layout_alignStart="@+id/textView20"
+        android:layout_below="@+id/textView21_edit_sale_title"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="70dp"
+        android:text="联系方式："
+        android:textColor="@color/black_h"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/textView25_edit_sale_contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="手机18234567411"
+        android:text="手机18234567411"
+        android:layout_below="@+id/spinner_edit_sale"
+        android:layout_marginTop="18dp"
+        android:layout_toRightOf="@+id/textView24"
+        android:textColor="@color/black_h"
+        android:layout_alignRight="@+id/textView29_edit_sale_describe"
+        android:layout_alignEnd="@+id/textView29_edit_sale_describe" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView29_edit_sale_describe"
+        android:layout_alignBottom="@+id/textView29_edit_sale_describe"
+        android:layout_alignLeft="@+id/textView24"
+        android:layout_alignStart="@+id/textView24"
+        android:text="描述："
+        android:textColor="@color/black_h"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/textView29_edit_sale_describe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView25_edit_sale_contact"
+        android:layout_marginRight="10dp"
+        android:hint="在漆黑的世界，一缕阳光是多么重要"
+        android:text="在漆黑的世界，一缕阳光是多么重要"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@+id/textView28"
+        android:layout_toRightOf="@+id/textView28"
+        android:autoLink="all"
+        android:textColor="@color/black_h" />
+
+    <TextView
+        android:id="@+id/textView35"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView20"
+        android:layout_toLeftOf="@+id/textView23_edit_sale_price"
+        android:layout_toStartOf="@+id/textView23_edit_sale_price"
+        android:text="价格：" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView20"
+        android:layout_alignStart="@+id/textView20"
+        android:layout_below="@+id/textView21_edit_sale_title"
+        android:layout_marginTop="20dp"
+        android:text="分类："
+        android:textColor="@color/black_h"
+        android:textSize="16sp" />
+
+    <Spinner
+        android:id="@+id/spinner_edit_sale"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView21"
+        android:layout_toEndOf="@+id/textView21"
+        android:layout_toRightOf="@+id/textView21"
+        android:entries="@array/classify" />
+
+    <ImageView
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/ic_add_goods"
+        android:id="@+id/imageView8"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="91dp" />
+
+</RelativeLayout>

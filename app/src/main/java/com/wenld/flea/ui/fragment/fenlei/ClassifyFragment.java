@@ -1,4 +1,4 @@
-package com.wenld.flea.fragment.fenlei;
+package com.wenld.flea.ui.fragment.fenlei;
 
 
 import android.content.Context;

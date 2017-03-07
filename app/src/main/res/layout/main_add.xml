@@ -18,7 +18,6 @@
         android:gravity="center"
         android:padding="20dp"
         android:text="＋出售"
-        android:onClick="clickAddSelect"
         android:textColor="@color/white" />
 
     <TextView
@@ -33,7 +32,6 @@
         android:layout_height="wrap_content"
         android:background="@color/blue_m"
         android:gravity="center"
-        android:onClick="clickAddSelect"
         android:padding="20dp"
         android:text="＋求购"
         android:textColor="@color/white" />

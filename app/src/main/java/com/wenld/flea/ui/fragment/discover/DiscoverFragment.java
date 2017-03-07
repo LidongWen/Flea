@@ -1,51 +1,59 @@
-package com.wenld.flea.fragment.discover;
+package com.wenld.flea.ui.fragment.discover;
 
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.wenld.baselib.fragment.BaseLazyFragment;
 import com.wenld.flea.R;
-
-import java.util.ArrayList;
+import com.wenld.flea.ui.tab.SaleActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DiscoverFragment extends Fragment {
+public class DiscoverFragment extends BaseLazyFragment {
 
     ViewPager viewPager;
 
     Button buttonLeft;
     Button buttonRight;
 
+    ImageView imageView4;
+
+    View add;
+
     boolean isLeftDiscover = true;
+    private TextView textView_add_sale;
+    private TextView textView_add_emption;
 
-    public DiscoverFragment() {
+
+    @Override
+    protected int getContentViewLayoutID() {
+        return R.layout.fragment_discover;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onFirstUserVisible() {
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_discover, container, false);
-        return view;
+    protected void onUserVisible() {
+
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected void onUserInvisible() {
+
+    }
+
+    @Override
+    protected void initViewsAndEvents(View view) {
         buttonLeft = (Button) view.findViewById(R.id.button_left_discover);
         buttonRight = (Button) view.findViewById(R.id.button_right_discover);
 
@@ -53,20 +61,14 @@ public class DiscoverFragment extends Fragment {
         viewPager.setAdapter(new VpAdapter(getChildFragmentManager()));
         viewPager.addOnPageChangeListener(new PagerChangeListener());
 
+        imageView4 = (ImageView) view.findViewById(R.id.imageView4);
+
+        add = view.findViewById(R.id.add);
+        textView_add_sale = (TextView) view.findViewById(R.id.textView_add_sale);
+        textView_add_emption = (TextView) view.findViewById(R.id.textView_add_emption);
         initButtonState();  //初始化button状态
 
-        buttonLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clickButtonDiscover(view);
-            }
-        });
-        buttonRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clickButtonDiscover(view);
-            }
-        });
+        initListener();
     }
 
     /**
@@ -82,39 +84,46 @@ public class DiscoverFragment extends Fragment {
         }
     }
 
-    /**
-     * ViewPager 适配器
-     */
-    public class VpAdapter extends FragmentPagerAdapter {
-        ArrayList<Fragment> data = new ArrayList<>();
-
-        DiscoverLeftFragment fgLeft;
-        DiscoverRightFragment fgRight;
-
-        public VpAdapter(FragmentManager fm) {
-            super(fm);
-            fgLeft = new DiscoverLeftFragment();
-            fgRight = new DiscoverRightFragment();
-
-            data.add(fgLeft);
-            data.add(fgRight);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return data.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return 2;
-        }
-
-        @Override
-        public int getItemPosition(Object object) {
-            return POSITION_NONE;
-        }
+    private void initListener() {
+        buttonLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickButtonDiscover(view);
+            }
+        });
+        buttonRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickButtonDiscover(view);
+            }
+        });
+        imageView4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggle();
+            }
+        });
+        textView_add_sale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SaleActivity.class);
+                startActivity(intent);
+            }
+        });
+        textView_add_emption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SaleActivity.class);
+                startActivity(intent);
+            }
+        });
     }
+
+    @Override
+    protected void DetoryViewAndThing() {
+
+    }
+
 
     /**
      * viewpager页面改变监听
@@ -148,7 +157,6 @@ public class DiscoverFragment extends Fragment {
      * @param position
      */
     public void pagerScrollTo(int position) {
-
         if (viewPager != null) {
             viewPager.setCurrentItem(position, true);
         }
@@ -160,7 +168,6 @@ public class DiscoverFragment extends Fragment {
      * @param view
      */
     public void clickButtonDiscover(View view) {
-
         //点击 摊位
         if (view.getId() == R.id.button_left_discover && !isLeftDiscover) {
             buttonLeft.setBackground(getResources().getDrawable(R.drawable.discover_tab_left_white));
@@ -183,6 +190,18 @@ public class DiscoverFragment extends Fragment {
 
             pagerScrollTo(1);
             isLeftDiscover = false;
+        }
+    }
+
+
+    public void toggle() {
+        switch (add.getVisibility()) {
+            case View.VISIBLE:
+                add.setVisibility(View.INVISIBLE);
+                break;
+            case View.INVISIBLE:
+                add.setVisibility(View.VISIBLE);
+                break;
         }
     }
 

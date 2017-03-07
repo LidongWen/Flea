@@ -1,4 +1,4 @@
-package com.wenld.flea.tab;
+package com.wenld.flea.ui.tab;
 
 import com.flyco.tablayout.listener.CustomTabEntity;
 
