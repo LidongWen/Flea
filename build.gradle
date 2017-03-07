@@ -6,7 +6,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.android.tools.build:gradle:2.3.0'
         classpath 'org.aspectj:aspectjtools:1.8.9'
         classpath 'org.aspectj:aspectjweaver:1.8.9'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.1'
@@ -18,7 +18,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-//        mavenCentral()
+        mavenCentral()
         maven { url "https://www.jitpack.io" }
     }
 }
