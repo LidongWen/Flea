@@ -3,6 +3,7 @@ package com.wenld.flea;
 import android.app.Application;
 
 import com.wenld.commontools.AllUtilConfig;
+import com.wenld.flea.bean.User;
 
 /**
  * <p/>
@@ -12,11 +13,18 @@ import com.wenld.commontools.AllUtilConfig;
  */
 
 public class App extends Application {
-    public final static int REQUEST_PICK_PICTURE = 0x118;  //本地选择图片
-    public final static int REQUEST_CAPTURE = 0x119;       //拍照
+    public static User user;
+    private static App globalInfo = null;
     @Override
     public void onCreate() {
         super.onCreate();
         AllUtilConfig.LogSwitch = true;
+        globalInfo = this;
     }
+
+
+    public static App getInstance() {
+        return globalInfo;
+    }
+
 }

@@ -4,59 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@color/colorPrimary"
-        android:popupTheme="@style/Theme.AppCompat.Light"
-        android:titleTextColor="@color/white" />
-
     <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignBottom="@+id/toolbar"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"
-        android:onClick="returnActivity"
-        android:src="@drawable/activity_return" />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView5"
-        android:layout_marginBottom="2dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"
-        android:layout_toEndOf="@+id/imageView5"
-        android:layout_toRightOf="@+id/imageView5"
-        android:onClick="returnActivity"
-        android:text="出售商品"
-        android:textColor="@color/white"
-        android:textSize="19sp" />
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView10"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:onClick="clickSure"
-        android:text="提交"
-        android:textColor="@color/white"
-        android:textSize="19sp" />
-
-    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/imageView7"
         android:layout_width="match_parent"
         android:layout_height="250dp"
@@ -65,8 +13,7 @@
         android:layout_below="@+id/toolbar"
         android:onClick="clickAddPicture"
         android:elevation="2dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_add_white" />
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/textView20"

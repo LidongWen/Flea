@@ -11,11 +11,15 @@ import android.widget.TextView;
 
 import com.wenld.baselib.fragment.BaseLazyFragment;
 import com.wenld.flea.R;
+import com.wenld.flea.aop.LogonPermission;
 import com.wenld.flea.ui.tab.SaleActivity;
+
+import org.aspectj.lang.annotation.Aspect;
 
 /**
  * A simple {@link Fragment} subclass.
  */
+@Aspect
 public class DiscoverFragment extends BaseLazyFragment {
 
     ViewPager viewPager;
@@ -106,17 +110,21 @@ public class DiscoverFragment extends BaseLazyFragment {
         textView_add_sale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), SaleActivity.class);
-                startActivity(intent);
+                startSale("测试");
             }
         });
         textView_add_emption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), SaleActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), SaleActivity.class);
+//                startActivity(intent);
             }
         });
+    }
+    @LogonPermission
+    public void startSale(String str) {
+        Intent intent = new Intent(getActivity(), SaleActivity.class);
+        startActivity(intent);
     }
 
     @Override

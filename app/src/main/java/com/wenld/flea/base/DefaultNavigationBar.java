@@ -12,12 +12,11 @@ import com.wenld.flea.R;
  * Created by wenld on 2017/2/27.
  */
 
-public class DefaultNavigationBar extends AbsNavigationBar {
+public class DefaultNavigationBar extends AbsNavigationBar<DefaultNavigationBar.Builder.DefalutNavationParams> {
 
-    public DefaultNavigationBar(Builder.AbsNavigationBarParams parent) {
+    public DefaultNavigationBar(Builder.DefalutNavationParams parent) {
         super(parent);
     }
-
     @Override
     public int bindLayoutId() {
         return R.layout.topbar_common_single_text;
@@ -25,15 +24,13 @@ public class DefaultNavigationBar extends AbsNavigationBar {
 
     @Override
     public void applyVIew() {
-//        setImageResource(R.id.iv_left, getmParams().leftIconRes);
-//        setImageResource(R.id.iv_right, getmParams().rightIconRes);
-//        setImageResource(R.id.iv_right_icon, getmParams().textRightIconRes);
-//        setText(R.id.title_tv, getmParams().title);
-//        setText(R.id.left_tv, getmParams().leftTv);
-//        setText(R.id.right_tv, getmParams().rightTv);
-//        setBackgroundColor(R.id.title_bar, getmParams().bgColor);
-//        setOnClickListener(R.id.left_ll, getmParams().leftOnClickListener);
-//        setOnClickListener(R.id.right_ll, getmParams().rightOnClickListener);
+
+        setImageResource(R.id.iv_back, getmParams().leftIconRes);
+        setImageResource(R.id.iv_Right, getmParams().rightIconRes);
+        setText(R.id.tv_title, getmParams().title);
+        setText(R.id.tv_Right, getmParams().rightTv);
+        setOnClickListener(R.id.iv_back, getmParams().leftOnClickListener);
+        setOnClickListener(R.id.tv_Right, getmParams().rightOnClickListener);
     }
 
     public static class Builder extends AbsNavigationBar.Builder {
@@ -43,6 +40,7 @@ public class DefaultNavigationBar extends AbsNavigationBar {
             super(context, parent);
             params = new DefalutNavationParams(context, parent);
         }
+
         public Builder setTitle(String title) {
             params.title = title;
             return this;
@@ -82,6 +80,7 @@ public class DefaultNavigationBar extends AbsNavigationBar {
             params.rightOnClickListener = onClickListener;
             return this;
         }
+
         @Override
         public DefaultNavigationBar create() {
             DefaultNavigationBar navigationBar = new DefaultNavigationBar(params);
@@ -89,6 +88,9 @@ public class DefaultNavigationBar extends AbsNavigationBar {
         }
 
         public static class DefalutNavationParams extends AbsNavigationBar.Builder.AbsNavigationBarParams {
+//            public SparseArray<CharSequence> mTextArray = new SparseArray();
+//            public SparseArray<View.OnClickListener> mClickArray = new SparseArray();
+
             //标题
             public String title;
             //左边图片资源
