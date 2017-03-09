@@ -17,4 +17,12 @@ public class ESApi {
         ApiRequest.postAPI(AppConfig.URL, paramsMap, baseApiCallback);
     }
 
+    public static void logon(String name, String pwd, BaseApiCallback baseApiCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("controller", "user");
+        paramsMap.put("method", "requestUserLogin");
+        paramsMap.put("user_id", name);
+        paramsMap.put("user_password", pwd);
+        ApiRequest.postAPI(AppConfig.URL, paramsMap, baseApiCallback);
+    }
 }

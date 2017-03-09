@@ -1,11 +1,11 @@
 package com.wenld.flea.aop;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 
-import com.wenld.commontools.LogUtil;
 import com.wenld.flea.App;
 import com.wenld.flea.ui.LoginActivity;
 
@@ -31,8 +31,8 @@ public class PermissionTest {
 
     @Around("executionAspectJ()")
     public Object aroundAspectJ(ProceedingJoinPoint joinPoint) throws Throwable {
-        Log.i(TAG, "判断是否登录");
-        if (App.getInstance().user != null) {
+        // TODO: 2017/3/9  后面要改成 !=
+        if (App.getInstance().user == null) {
 //            MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
 //            Log.i(TAG, "aroundAspectJ(ProceedingJoinPoint joinPoint)");
 //            LogonPermission aspectJAnnotation = methodSignature.getMethod().getAnnotation(LogonPermission.class);
@@ -44,15 +44,29 @@ public class PermissionTest {
 //        Toast.makeText(App.getInstance(),""+joinPoint.getThis().toString(),Toast.LENGTH_LONG).show();
 //        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
 
-        LogUtil.e(TAG,"joinPoint.getThis(): "+joinPoint.getThis().toString());
-        LogUtil.e(TAG,"joinPoint.getTarget(): "+joinPoint.getTarget().toString());
-        LogUtil.e(TAG,"joinPoint.getArgs(): "+joinPoint.getArgs().toString());
-        LogUtil.e(TAG,"isFragment  "+joinPoint.getTarget().getClass().isInstance(Fragment.class));
-//        Intent intent=new Intent(App.getInstance(),LoginActivity.class);
-//        App.getInstance().startActivity(new Intent(App.getInstance(),LoginActivity.class));
-        Intent intent = new Intent((Context) joinPoint.getThis(), LoginActivity.class);
-        ((Context) joinPoint.getThis()).startActivity(intent);
+//        LogUtil.e(TAG, "joinPoint.getThis(): " + joinPoint.getThis().toString());
+//        LogUtil.e(TAG, "joinPoint.getTarget(): " + joinPoint.getTarget().toString());
+//        LogUtil.e(TAG, "joinPoint.getArgs(): " + joinPoint.getArgs().toString());
+//        LogUtil.e(TAG, "isFragment  " + Fragment.class.isInstance(joinPoint.getTarget()));
+
+        if (Fragment.class.isInstance(joinPoint.getTarget())) {
+            startLoginActivity(((Fragment) joinPoint.getTarget()).getContext());
+            return "";
+        }
+        if (Activity.class.isInstance(joinPoint.getTarget())) {
+            startLoginActivity(((Activity) joinPoint.getTarget()).getBaseContext());
+            return "";
+        }
+        if (AppCompatActivity.class.isInstance(joinPoint.getTarget())) {
+            startLoginActivity(((AppCompatActivity) joinPoint.getTarget()).getBaseContext());
+            return "";
+        }
         return "";
+    }
+
+    private void startLoginActivity(Context context) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
     }
 
 }

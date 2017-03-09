@@ -1,20 +1,15 @@
 package com.wenld.flea.ui;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.text.TextUtils;
-import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wenld.flea.R;
+import com.wenld.flea.base.BaseActivity;
 
 import static com.wenld.flea.R.id.btn_login;
 import static com.wenld.flea.R.id.input_email;
@@ -28,44 +23,24 @@ import static com.wenld.flea.R.id.link_signup;
  * github: https://github.com/LidongWen
  */
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity {
     private static final String TAG = "LoginActivity";
-    private static final int REQUEST_SIGNUP = 0;
 
     private EditText _emailText;
     private EditText _passwordText;
     private AppCompatButton _loginButton;
     private TextView _signupLink;
 
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        initView();
-        _loginButton.setOnClickListener(new View.OnClickListener() {
+    protected void initData() {
 
-            @Override
-            public void onClick(View v) {
-                login();
-            }
-        });
-
-        _signupLink.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // Start the Signup activity
-//                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
-//                startActivityForResult(intent, REQUEST_SIGNUP);
-//                finish();
-//                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-            }
-        });
     }
 
-    public void login() {
-        Log.d(TAG, "Login");
+    String email;
+    String password;
 
+    public void login() {
         if (!validate()) {
             onLoginFailed();
             return;
@@ -79,39 +54,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
 
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
+        email = _emailText.getText().toString();
+        password = _passwordText.getText().toString();
 
-        // TODO: Implement your own authentication logic here.
-
-        new Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_SIGNUP) {
-            if (resultCode == RESULT_OK) {
-
-                // TODO: Implement successful signup logic here
-                // By default we just finish the Activity and log them in automatically
-                this.finish();
-            }
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        // Disable going back to the MainActivity
-        moveTaskToBack(true);
+// TODO: 2017/3/9  登录
+//        ESApi.logon(email, password, new BaseApiCallback() {
+//            @Override
+//            protected void onAPISuccess(String data) {
+//                try {
+//                    SPUtils.put(LoginActivity.this, SType.Logon_file, SType.Logon_no, email);
+//                    SPUtils.put(LoginActivity.this, SType.Logon_file, SType.Logon_pwd, password);
+//                    App.getInstance().user=FastJsonUtil.getObject(data,User.class);
+//                    onLoginSuccess();
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//
+//                }
+//            }
+//
+//            @Override
+//            protected void onAPIFailure(String msg) {
+//                onLoginFailed();
+//            }
+//        });
     }
 
     public void onLoginSuccess() {
@@ -121,7 +87,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void onLoginFailed() {
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
-
         _loginButton.setEnabled(true);
     }
 
@@ -131,8 +96,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText.setError("enter a valid email address");
+        if (email.isEmpty() ) {
+            _emailText.setError("enter a valid user_id");
             valid = false;
         } else {
             _emailText.setError(null);
@@ -144,31 +109,45 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         } else {
             _passwordText.setError(null);
         }
-
         return valid;
     }
 
-    private void initView() {
-//        private EditText _emailText;
-//        private EditText _passwordText;
-//        private AppCompatButton _loginButton;
-//        private TextView _signupLink;
+    protected void initView() {
 
         _emailText = (EditText) findViewById(input_email);
         _passwordText = (EditText) findViewById(input_password);
         _loginButton = (AppCompatButton) findViewById(btn_login);
         _signupLink = (TextView) findViewById(link_signup);
 
-        _loginButton.setOnClickListener(this);
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case btn_login:
+    protected void initTitle() {
 
-                break;
-        }
+    }
+
+    @Override
+    protected void setContentView() {
+        setContentView(R.layout.activity_login);
+    }
+
+    @Override
+    protected void initListener() {
+        _loginButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                login();
+            }
+        });
+
+        _signupLink.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void submit() {
