@@ -11,5 +11,11 @@ public interface SType {
     String Logon_no = "Logon_no";
     String Logon_pwd = "Logon_pwd";
     String Logon_User = "Logon_User";
-    String intent_PhotoList = "intent_PhotoList";
+
+
+    int TYPE_SELL=1;
+    int TYPE_BUY=0;
+
+
+    String intent_Detail = "intent_Detail";
 }

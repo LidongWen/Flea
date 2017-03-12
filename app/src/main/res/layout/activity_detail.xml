@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/value_8">
+
+    <ImageView
+        android:id="@+id/iv_aty_detail"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop" />
+    <TextView
+        android:id="@+id/tv_title_aty_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        tools:text="学长的草席" />
+    <TextView
+        android:id="@+id/tv_pic_aty_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        tools:text="19.8"
+        android:textColor="@color/green_m" />
+
+
+    <TextView
+        android:id="@+id/tv_link_aty_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        tools:text="这是联系方式" />
+
+    <TextView
+        android:id="@+id/tv_memo_aty_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_price"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:maxLines="5"
+        tools:text="这个东西好呀，有逼格"
+        android:textColor="@color/black_h" />
+</LinearLayout>

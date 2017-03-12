@@ -51,12 +51,33 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void initListener();
 
 
-    /**
-     * 启动Activity
-     */
-    protected void startActivity(Class<?> clazz) {
+
+    protected void readyGo(Class<?> clazz) {
         Intent intent = new Intent(this, clazz);
-        startActivity(intent);
+        this.startActivity(intent);
+    }
+
+    protected void readyGo(Class<?> clazz, Bundle bundle) {
+        Intent intent = new Intent(this, clazz);
+        if(null != bundle) {
+            intent.putExtras(bundle);
+        }
+
+        this.startActivity(intent);
+    }
+
+    protected void readyGoForResult(Class<?> clazz, int requestCode) {
+        Intent intent = new Intent(this, clazz);
+        this.startActivityForResult(intent, requestCode);
+    }
+
+    protected void readyGoForResult(Class<?> clazz, int requestCode, Bundle bundle) {
+        Intent intent = new Intent(this, clazz);
+        if(null != bundle) {
+            intent.putExtras(bundle);
+        }
+
+        this.startActivityForResult(intent, requestCode);
     }
 
     /**

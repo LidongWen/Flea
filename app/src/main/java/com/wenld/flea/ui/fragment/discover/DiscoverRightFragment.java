@@ -63,7 +63,7 @@ public class DiscoverRightFragment extends Fragment implements SwipeRefreshLayou
 
                 holder.setText(R.id.dis_right_classify, user.getClassify());
                 holder.setText(R.id.dis_right_describe, user.getDescribe());
-                holder.setText(R.id.dis_right_author, user.getUserName());
+                holder.setText(R.id.dis_right_author, user.getUser_id());
                 holder.setText(R.id.textView_purchase_time, user.getTime());
 
             }

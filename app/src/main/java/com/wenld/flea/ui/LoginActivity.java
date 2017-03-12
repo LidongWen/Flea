@@ -8,8 +8,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.wenld.flea.App;
 import com.wenld.flea.R;
 import com.wenld.flea.base.BaseActivity;
+import com.wenld.flea.bean.User;
 
 import static com.wenld.flea.R.id.btn_login;
 import static com.wenld.flea.R.id.input_email;
@@ -58,13 +60,16 @@ public class LoginActivity extends BaseActivity {
         password = _passwordText.getText().toString();
 
 // TODO: 2017/3/9  登录
+        User user=new User(""+R.mipmap.ic_launcher,"wenld","wenld");
+        App.getInstance().user=user;// FastJsonUtil.getObject(data,User.class);
+        onLoginSuccess();
 //        ESApi.logon(email, password, new BaseApiCallback() {
 //            @Override
 //            protected void onAPISuccess(String data) {
 //                try {
 //                    SPUtils.put(LoginActivity.this, SType.Logon_file, SType.Logon_no, email);
 //                    SPUtils.put(LoginActivity.this, SType.Logon_file, SType.Logon_pwd, password);
-//                    App.getInstance().user=FastJsonUtil.getObject(data,User.class);
+//                    App.getInstance().user= FastJsonUtil.getObject(data,User.class);
 //                    onLoginSuccess();
 //
 //                } catch (Exception e) {

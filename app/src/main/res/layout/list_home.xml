@@ -1,44 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:padding="8dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_card"
+    android:padding="8dp">
 
     <ImageView
         android:id="@+id/imageView_home"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
         android:layout_alignParentLeft="true"
-        android:scaleType="fitXY"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        />
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/textView_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView_home"
+        android:layout_marginBottom="9dp"
         android:layout_marginLeft="12dp"
         android:layout_marginStart="12dp"
         android:text="19.8￥"
-        android:textColor="@color/green_m"
-        android:layout_marginBottom="9dp"
-        android:layout_alignBottom="@+id/imageView_home"
-        android:layout_toRightOf="@+id/imageView_home"
-        android:layout_toEndOf="@+id/imageView_home" />
+        android:textColor="@color/green_m" />
 
     <TextView
         android:id="@+id/textView_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="电风扇"
-        android:layout_marginTop="7dp"
-        android:textColor="@color/black_h"
-        android:maxLength="5"
-        android:ellipsize="none"
-        android:layout_alignTop="@+id/imageView_home"
-        android:layout_toRightOf="@+id/imageView_home"
-        android:layout_toEndOf="@+id/imageView_home"
+        android:layout_below="@+id/textView_price"
         android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp" />
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="7dp"
+        android:ellipsize="none"
+        android:maxLength="5"
+        android:text="电风扇"
+        android:textColor="@color/black_h" />
 </RelativeLayout>

@@ -59,7 +59,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.MainActivity"
+        <activity
+            android:name=".ui.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -76,6 +77,10 @@
         <activity
             android:name=".ui.tab.SaleActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.DetailActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

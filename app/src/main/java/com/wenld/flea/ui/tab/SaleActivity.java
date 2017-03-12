@@ -69,7 +69,7 @@ public class SaleActivity extends BaseActivity {
             }
         }).setTitle("出售商品").create();
 
-        imageView= (ImageView) findViewById(R.id.imageView7);
+        imageView = (ImageView) findViewById(R.id.imageView7);
         editTextTitle = (EditText) findViewById(R.id.textView21_edit_sale_title);
         editTextPrice = (EditText) findViewById(R.id.textView23_edit_sale_price);
         editTextContact = (EditText) findViewById(R.id.textView25_edit_sale_contact);
@@ -204,6 +204,12 @@ public class SaleActivity extends BaseActivity {
     @PermissionSuccess(requestCode = 100)
     public void doSomething() {
         selectPic();//  Toast.makeText(this, "Contact permission is granted", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 
     @PermissionFail(requestCode = 100)

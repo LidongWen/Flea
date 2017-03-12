@@ -30,8 +30,6 @@ public class UserDao extends AbstractDao<User, Long> {
         public final static Property Name = new Property(3, String.class, "name", false, "NAME");
         public final static Property Account = new Property(4, String.class, "account", false, "ACCOUNT");
         public final static Property Contact = new Property(5, String.class, "contact", false, "CONTACT");
-        public final static Property Flag = new Property(6, int.class, "flag", false, "FLAG");
-        public final static Property Describe = new Property(7, String.class, "describe", false, "DESCRIBE");
     }
 
 
@@ -52,9 +50,7 @@ public class UserDao extends AbstractDao<User, Long> {
                 "\"ICON\" TEXT," + // 2: icon
                 "\"NAME\" TEXT," + // 3: name
                 "\"ACCOUNT\" TEXT," + // 4: account
-                "\"CONTACT\" TEXT," + // 5: contact
-                "\"FLAG\" INTEGER NOT NULL ," + // 6: flag
-                "\"DESCRIBE\" TEXT);"); // 7: describe
+                "\"CONTACT\" TEXT);"); // 5: contact
     }
 
     /** Drops the underlying database table. */
@@ -96,12 +92,6 @@ public class UserDao extends AbstractDao<User, Long> {
         if (contact != null) {
             stmt.bindString(6, contact);
         }
-        stmt.bindLong(7, entity.getFlag());
- 
-        String describe = entity.getDescribe();
-        if (describe != null) {
-            stmt.bindString(8, describe);
-        }
     }
 
     @Override
@@ -137,12 +127,6 @@ public class UserDao extends AbstractDao<User, Long> {
         if (contact != null) {
             stmt.bindString(6, contact);
         }
-        stmt.bindLong(7, entity.getFlag());
- 
-        String describe = entity.getDescribe();
-        if (describe != null) {
-            stmt.bindString(8, describe);
-        }
     }
 
     @Override
@@ -158,9 +142,7 @@ public class UserDao extends AbstractDao<User, Long> {
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // icon
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // name
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // account
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // contact
-            cursor.getInt(offset + 6), // flag
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7) // describe
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // contact
         );
         return entity;
     }
@@ -173,8 +155,6 @@ public class UserDao extends AbstractDao<User, Long> {
         entity.setName(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setAccount(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setContact(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setFlag(cursor.getInt(offset + 6));
-        entity.setDescribe(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
      }
     
     @Override

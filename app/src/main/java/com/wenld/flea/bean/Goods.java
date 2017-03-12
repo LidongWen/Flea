@@ -1,26 +1,25 @@
 package com.wenld.flea.bean;
 
+import java.io.Serializable;
+
 /**
  * 物品实体类
  */
-public class Goods {
-
+public class Goods implements Serializable {
     private String goods_id;    //自定义的物品id
-
     private String title;        //名字
     private float price;        //价格
     private String describe;    //描述
-    private String userId;      //用户id
     private String classify;    //分类
     private String contact;     //描述
     private String time;           //时间
-
     private int flag;            //1：出售		0：求购
-
-    private String userName;     //用户名
-
+    private String user_id;     //用户名
+    private String link;//联系方式
 
     private String pic_location;    //图片地址
+
+    private int pic_Res = 0;
 
     public Goods() {
 
@@ -34,28 +33,46 @@ public class Goods {
      * @param flag
      * @param classify
      */
-    public Goods(String title, float price, String describe, String userId, String classify, String time, int flag, String pic) {
-        super();
-        this.title = title;
-        this.price = price;
-        this.describe = describe;
-        this.userId = userId;
-        this.classify = classify;
-        this.time = time;
-        this.flag = flag;
-        pic_location = pic;
-    }
 
 
     public Goods(String title, float price, String describe, String userId, String classify, String time,
-                 String pic_location) {
+                 String pic_location, int flag) {
         super();
         this.title = title;
         this.price = price;
         this.describe = describe;
-        this.userId = userId;
+        this.user_id = userId;
         this.classify = classify;
         this.time = time;
+        this.pic_location = pic_location;
+        this.flag = flag;
+    }
+
+    public Goods(String title, float price, String describe, String userId, String classify, String time,
+                 int pic_, int flag,String link) {
+        super();
+        this.title = title;
+        this.price = price;
+        this.describe = describe;
+        this.user_id = userId;
+        this.classify = classify;
+        this.time = time;
+        this.pic_Res = pic_;
+        this.flag = flag;
+        this.link=link;
+    }
+
+    public Goods(String goods_id, String title, float price, String describe, String classify, String contact, String time, int flag,
+                 String user_id, String pic_location) {
+        this.goods_id = goods_id;
+        this.title = title;
+        this.price = price;
+        this.describe = describe;
+        this.classify = classify;
+        this.contact = contact;
+        this.time = time;
+        this.flag = flag;
+        this.user_id = user_id;
         this.pic_location = pic_location;
     }
 
@@ -102,25 +119,12 @@ public class Goods {
     }
 
     /**
-     * @return the userId
-     */
-    public String getUserId() {
-        return userId;
-    }
-
-    /**
-     * @param userId the userId to set
-     */
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    /**
      * @return the classify
      */
     public String getClassify() {
         return classify;
     }
+
 
     /**
      * @param classify the classify to set
@@ -159,12 +163,12 @@ public class Goods {
         this.pic_location = pic_location;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUser_id() {
+        return user_id;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
     public String getContact() {
@@ -189,11 +193,27 @@ public class Goods {
                 ", title='" + title + '\'' +
                 ", price=" + price +
                 ", describe='" + describe + '\'' +
-                ", userId=" + userId +
                 ", classify='" + classify + '\'' +
                 ", time=" + time +
                 ", flag=" + flag +
+                ".pic_Res=" + pic_Res +
                 ", pic_location='" + pic_location + '\'' +
                 '}';
+    }
+
+    public int getPic_Res() {
+        return pic_Res;
+    }
+
+    public void setPic_Res(int pic_Res) {
+        this.pic_Res = pic_Res;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }

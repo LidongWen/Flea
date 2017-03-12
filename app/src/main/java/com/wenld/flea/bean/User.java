@@ -1,18 +1,11 @@
 package com.wenld.flea.bean;
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Transient;
-
 import java.util.ArrayList;
 
 /**
  * 用户实体类
  */
-@Entity
 public class User {
-    @Id
     private Long id;
 
     private String user_id;//用户id
@@ -25,22 +18,18 @@ public class User {
 
     private String contact;    //联系方式
 
-    private int flag;        //1：qq		0:微博
 
-    @Transient
     private ArrayList<Goods> listSale;            //用户出售的物品
 
-    private String describe;        //摊位描述  mark：服务器暂时没添加
 
 
     public User() {
     }
 
-    public User(String icon, String name, String account, int flag) {
+    public User(String icon, String name, String account) {
         this.icon = icon;
         this.name = name;
         this.account = account;
-        this.flag = flag;
     }
 
     /**
@@ -58,18 +47,23 @@ public class User {
         this.contact = contact;
         this.listSale = list;
     }
-
-    @Generated(hash = 1073190313)
     public User(Long id, String user_id, String icon, String name, String account, String contact,
-            int flag, String describe) {
+           String describe) {
         this.id = id;
         this.user_id = user_id;
         this.icon = icon;
         this.name = name;
         this.account = account;
         this.contact = contact;
-        this.flag = flag;
-        this.describe = describe;
+    }
+
+    public User(Long id, String user_id, String icon, String name, String account, String contact) {
+        this.id = id;
+        this.user_id = user_id;
+        this.icon = icon;
+        this.name = name;
+        this.account = account;
+        this.contact = contact;
     }
 
     public Long getId() {
@@ -145,22 +139,6 @@ public class User {
         this.listSale = listSale;
     }
 
-    public int getFlag() {
-        return flag;
-    }
-
-    public void setFlag(int flag) {
-        this.flag = flag;
-    }
-
-    public String getDescribe() {
-        return describe;
-    }
-
-    public void setDescribe(String describe) {
-        this.describe = describe;
-    }
-
     public String getUser_id() {
         return user_id;
     }
@@ -176,7 +154,6 @@ public class User {
                 ", name='" + name + '\'' +
                 ", account='" + account + '\'' +
                 ", contact='" + contact + '\'' +
-                ", flag=" + flag +
                 ", listSale=" + listSale +
                 '}';
     }

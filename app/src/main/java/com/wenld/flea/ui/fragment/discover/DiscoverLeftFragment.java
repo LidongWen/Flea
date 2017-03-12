@@ -14,17 +14,20 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.wenld.flea.R;
+import com.wenld.flea.bean.Goods;
 import com.wenld.flea.bean.User;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.ArrayList;
 
+import static com.wenld.flea.common.SType.TYPE_SELL;
+
 
 public class DiscoverLeftFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     RecyclerView recyclerView;
     SwipeRefreshLayout mSwipeLayout;
-    ArrayList<User> data = new ArrayList<>();
+    ArrayList<Goods> data = new ArrayList<>();
     CommonAdapter adapter;
 
     @Override
@@ -45,17 +48,17 @@ public class DiscoverLeftFragment extends Fragment implements SwipeRefreshLayout
     }
 
     void initView() {
-        data.add(new User("s","sd","dsef",1));
-        adapter = new CommonAdapter<User>(getContext(), R.layout.list_discover_sale, data) {
+        data.add(new Goods("学长的台灯", 18, "九成新", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher + "", TYPE_SELL));
+        adapter = new CommonAdapter<Goods>(getContext(), R.layout.list_discover_sale, data) {
             @Override
-            protected void convert(ViewHolder holder, User user, int position) {
+            protected void convert(ViewHolder holder, Goods user, int position) {
                 ImageView imageView = holder.getView(R.id.imageView_discover_left);
-                Glide.with(holder.getConvertView().getContext()).load(user.getIcon())
+                Glide.with(holder.getConvertView().getContext()).load(user.getPic_location())
                         .dontAnimate()
                         .into(imageView);
 
-                holder.setText(R.id.textView_discover_left_author,user.getName());
-                holder.setText(R.id.textView_discover_left_description,"描述:" + user.getDescribe());
+                holder.setText(R.id.textView_discover_left_author, user.getUser_id());
+                holder.setText(R.id.textView_discover_left_description, "描述:" + user.getDescribe());
             }
         };
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, GridLayoutManager.VERTICAL));

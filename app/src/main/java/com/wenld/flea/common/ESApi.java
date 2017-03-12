@@ -10,19 +10,63 @@ import java.util.Map;
  */
 public class ESApi {
 
-    public static void GetUserList( BaseApiCallback baseApiCallback) {
+    public static void logon(String name, String pwd, BaseApiCallback baseApiCallback) {
         Map<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("controller", "file");
-        paramsMap.put("method", "requestGetUserList");
+//        paramsMap.put("controller", "user");
+        paramsMap.put("method", "logon");
+        paramsMap.put("user_id", name);
+        paramsMap.put("user_password", pwd);
         ApiRequest.postAPI(AppConfig.URL, paramsMap, baseApiCallback);
     }
 
-    public static void logon(String name, String pwd, BaseApiCallback baseApiCallback) {
+    /**
+     * 获取商品列表
+     *
+     * @param name
+     * @param baseApiCallback
+     */
+    public static void commodityList(String name,String flag, BaseApiCallback baseApiCallback) {
         Map<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("controller", "user");
-        paramsMap.put("method", "requestUserLogin");
+//        paramsMap.put("controller", "user");
+        paramsMap.put("method", "requestList");
+        paramsMap.put("type", name);
+        ApiRequest.postAPI(AppConfig.URL, paramsMap, baseApiCallback);
+    }
+
+    /**
+     * 商品上传接口
+     *
+     * @param name
+     * @param desc
+     * @param link
+     * @param pirce
+     * @param type
+     * @param baseApiCallback
+     */
+    public static void upload(String name, String desc, String link, String pirce, String type, BaseApiCallback baseApiCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+//        paramsMap.put("controller", "user");
+        paramsMap.put("method", "requestUpload");
         paramsMap.put("user_id", name);
-        paramsMap.put("user_password", pwd);
+        paramsMap.put("desc", desc);
+        paramsMap.put("link", link);
+        paramsMap.put("pirce", pirce);
+        paramsMap.put("type", type);
+        ApiRequest.postAPI(AppConfig.URL, paramsMap, baseApiCallback);
+    }
+
+    /**
+     * 注册
+     * @param user_id
+     * @param user_password
+     * @param baseApiCallback
+     */
+    public static void account(String user_id, String user_password, BaseApiCallback baseApiCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+//        paramsMap.put("controller", "user");
+        paramsMap.put("method", "registered");
+        paramsMap.put("user_id", user_id);
+        paramsMap.put("user_password", user_password);
         ApiRequest.postAPI(AppConfig.URL, paramsMap, baseApiCallback);
     }
 }
