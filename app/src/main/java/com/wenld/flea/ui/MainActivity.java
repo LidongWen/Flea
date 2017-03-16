@@ -12,6 +12,7 @@ import com.wenld.flea.base.BaseActivity;
 import com.wenld.flea.ui.fragment.discover.DiscoverFragment;
 import com.wenld.flea.ui.fragment.fenlei.ClassifyFragment;
 import com.wenld.flea.ui.fragment.home.HomeFragment;
+import com.wenld.flea.ui.fragment.more.MoreFragment;
 import com.wenld.flea.ui.tab.TabEntity;
 
 import java.util.ArrayList;
@@ -104,7 +105,7 @@ public class MainActivity extends BaseActivity {
                 case 2:
                     return new ClassifyFragment();
                 case 3:
-                    return new Fragment();
+                    return new MoreFragment();
                 default:
                     return new Fragment();
             }

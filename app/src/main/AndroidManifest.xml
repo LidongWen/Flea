@@ -80,7 +80,18 @@
         <activity
             android:name=".ui.DetailActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".ui.ListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.CollectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.MyDeailActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

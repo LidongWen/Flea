@@ -5,9 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,7 @@ import com.wenld.flea.R;
 import com.wenld.flea.bean.Goods;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
+import com.zhy.adapter.recyclerview.wrapper.EmptyWrapper;
 
 import java.util.ArrayList;
 
@@ -30,7 +30,7 @@ public class DiscoverRightFragment extends Fragment implements SwipeRefreshLayou
     RecyclerView recyclerView;
     SwipeRefreshLayout mSwipeLayout;
     CommonAdapter adapter;
-
+    EmptyWrapper emptyWrapper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,13 +69,17 @@ public class DiscoverRightFragment extends Fragment implements SwipeRefreshLayou
             }
         };
 
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, GridLayoutManager.VERTICAL));
-        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        emptyWrapper = new EmptyWrapper(adapter);
+        emptyWrapper.setEmptyView(R.layout.layout_empty);
+        recyclerView.setAdapter(emptyWrapper);
     }
 
 
     @Override
     public void onRefresh() {
+        mSwipeLayout.setRefreshing(false);
+        emptyWrapper.notifyDataSetChanged();
     }
 
 }

@@ -27,17 +27,15 @@ import static com.wenld.flea.common.SType.TYPE_SELL;
  * Created by wenld on 2017/3/12.
  */
 
-public class ListActivity extends BaseActivity {
+public class CollectionActivity extends BaseActivity {
     public RecyclerView recyclerView_aty_list;
     CommonAdapter adapter;
     EmptyWrapper emptyWrapper;
     ArrayList<Goods> data = new ArrayList<>();
-    String classify;
 
     @Override
     protected void initData() {
 
-        //todo 根据类别 获取数据
         data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher, TYPE_SELL, "1108888"));
         data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_SELL, "1108888"));
         data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_SELL, "1108888"));
@@ -50,16 +48,13 @@ public class ListActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        classify = getIntent().getStringExtra("classify");
-        String name = getIntent().getStringExtra("name");
-
         new DefaultNavigationBar.Builder(this, null).setLeftIcon(R.drawable.activity_return).setLeftOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         }).setRight("")
-                .setTitle(name).create();
+                .setTitle("我的收藏").create();
 
         recyclerView_aty_list = (RecyclerView) findViewById(R.id.recyclerView_aty_list);
 

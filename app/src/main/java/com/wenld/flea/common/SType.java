@@ -13,7 +13,9 @@ public interface SType {
     String Logon_User = "Logon_User";
 
 
+    //出售
     int TYPE_SELL=1;
+    //求购
     int TYPE_BUY=0;
 
 

@@ -18,6 +18,7 @@ import com.wenld.flea.bean.Goods;
 import com.wenld.flea.bean.User;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
+import com.zhy.adapter.recyclerview.wrapper.EmptyWrapper;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class DiscoverLeftFragment extends Fragment implements SwipeRefreshLayout
     SwipeRefreshLayout mSwipeLayout;
     ArrayList<Goods> data = new ArrayList<>();
     CommonAdapter adapter;
-
+    EmptyWrapper emptyWrapper;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -62,7 +63,9 @@ public class DiscoverLeftFragment extends Fragment implements SwipeRefreshLayout
             }
         };
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, GridLayoutManager.VERTICAL));
-        recyclerView.setAdapter(adapter);
+        emptyWrapper=new EmptyWrapper(adapter);
+        emptyWrapper.setEmptyView(R.layout.layout_empty);
+        recyclerView.setAdapter(emptyWrapper);
     }
 
     @Override

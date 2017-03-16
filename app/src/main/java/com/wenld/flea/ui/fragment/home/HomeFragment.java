@@ -20,6 +20,7 @@ import com.wenld.flea.ui.DetailActivity;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
+import com.zhy.adapter.recyclerview.wrapper.EmptyWrapper;
 
 import java.util.ArrayList;
 
@@ -32,6 +33,7 @@ import static com.wenld.flea.common.SType.TYPE_SELL;
 public class HomeFragment extends BaseLazyFragment {
 
     RecyclerView recyclerView;
+    EmptyWrapper emptyWrapper;
     CommonAdapter adapter;
     ArrayList<Goods> data = new ArrayList<>();
     ImageView imageView;
@@ -48,6 +50,7 @@ public class HomeFragment extends BaseLazyFragment {
     protected void initViewsAndEvents(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_home);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, GridLayoutManager.VERTICAL));
+
 
         adapter = new CommonAdapter<Goods>(getContext(), R.layout.list_home, data) {
             @Override
@@ -68,7 +71,9 @@ public class HomeFragment extends BaseLazyFragment {
                 holder.setText(R.id.textView_price, String.format(getString(R.string.price_money), StringUtils.processNullStr(data.get(position).getPrice() + "")));
             }
         };
-        recyclerView.setAdapter(adapter);
+        emptyWrapper=new EmptyWrapper(adapter);
+        emptyWrapper.setEmptyView(R.layout.layout_empty);
+        recyclerView.setAdapter(emptyWrapper);
 
 
         imageView = (ImageView) view.findViewById(R.id.imageView);
@@ -108,7 +113,7 @@ public class HomeFragment extends BaseLazyFragment {
         data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher, TYPE_SELL,"1108888"));
         data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_SELL,"1108888"));
 
-        adapter.notifyDataSetChanged();
+        emptyWrapper.notifyDataSetChanged();
     }
 
     @Override

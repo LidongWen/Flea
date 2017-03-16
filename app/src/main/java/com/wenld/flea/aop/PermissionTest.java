@@ -31,23 +31,10 @@ public class PermissionTest {
 
     @Around("executionAspectJ()")
     public Object aroundAspectJ(ProceedingJoinPoint joinPoint) throws Throwable {
-        if (App.getInstance().user != null) {
-//            MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-//            Log.i(TAG, "aroundAspectJ(ProceedingJoinPoint joinPoint)");
-//            LogonPermission aspectJAnnotation = methodSignature.getMethod().getAnnotation(LogonPermission.class);
-//            String permission = aspectJAnnotation.value();
-//            Log.i(TAG, "有权限："+permission);
-
+        // TODO: 2017/3/9  后面要改成 !=
+        if (App.getInstance().user == null) {
             return joinPoint.proceed();
         }
-//        Toast.makeText(App.getInstance(),""+joinPoint.getThis().toString(),Toast.LENGTH_LONG).show();
-//        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-
-//        LogUtil.e(TAG, "joinPoint.getThis(): " + joinPoint.getThis().toString());
-//        LogUtil.e(TAG, "joinPoint.getTarget(): " + joinPoint.getTarget().toString());
-//        LogUtil.e(TAG, "joinPoint.getArgs(): " + joinPoint.getArgs().toString());
-//        LogUtil.e(TAG, "isFragment  " + Fragment.class.isInstance(joinPoint.getTarget()));
-
         if (Fragment.class.isInstance(joinPoint.getTarget())) {
             startLoginActivity(((Fragment) joinPoint.getTarget()).getContext());
             return "";

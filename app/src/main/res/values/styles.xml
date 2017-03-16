@@ -2,14 +2,51 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+        <!--ActionBar底色-->
         <item name="colorPrimary">@color/colorPrimary</item>
+        <!--状态栏底色-->
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!--对应EditText编辑时、RadioButton选中、CheckBox等选中时的颜色。-->
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionBarSize">48dp</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
     </style>
+
     <style name="AppTheme.Dark.Dialog" parent="Theme.AppCompat.Dialog">
         <item name="colorAccent">@color/white</item>
         <item name="android:textColorPrimary">#CCCCCC</item>
         <item name="android:background">@color/colorPrimaryDark</item>
+    </style>
+
+
+    <style name="rlt_fragment_mine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/value_50</item>
+        <!--<item name="android:background">@drawable/selector_item</item>-->
+    </style>
+
+    <style name="iv_icon_fragment_mine">
+        <item name="android:layout_width">@dimen/value_50</item>
+        <item name="android:layout_height">@dimen/value_50</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:padding">@dimen/value_8</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+
+    <style name="tv_list_fragment_mine">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">@dimen/size_zt_16</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="line_horizontal" parent="line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+
+    <style name="line">
+        <item name="android:background">#ffcccccc</item>
     </style>
 </resources>

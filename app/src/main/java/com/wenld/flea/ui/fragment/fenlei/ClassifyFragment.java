@@ -2,6 +2,7 @@ package com.wenld.flea.ui.fragment.fenlei;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wenld.flea.R;
+import com.wenld.flea.ui.ListActivity;
 
 import java.util.ArrayList;
 
@@ -43,7 +45,7 @@ public class ClassifyFragment extends Fragment {
         return view;
     }
 
-    public class RvAdapter extends RecyclerView.Adapter<RvAdapter.Holder> implements View.OnClickListener {
+    public class RvAdapter extends RecyclerView.Adapter<RvAdapter.Holder> {
 
         ArrayList<String> listTitle = new ArrayList<>();
         ArrayList<Integer> listColor = new ArrayList<>();
@@ -91,31 +93,18 @@ public class ClassifyFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(Holder holder, int position) {
+        public void onBindViewHolder(Holder holder, final int position) {
             holder.textView.setText(listTitle.get(position));
             holder.relativeLayout.setBackgroundColor(listColor.get(position));
             holder.imageView.setImageResource(listImage.get(position));
 
             holder.relativeLayout.setId(position);
 
-            holder.relativeLayout.setOnClickListener(this);
         }
 
         @Override
         public int getItemCount() {
             return 7;
-        }
-
-        /**
-         * 点击事件
-         *
-         * @param v
-         */
-        @Override
-        public void onClick(View v) {
-//            Intent intent = new Intent(getActivity(), ClassifyActivity.class);
-//            intent.putExtra("classify", listTitle.get(v.getId()));
-//            startActivity(intent);
         }
 
         public class Holder extends RecyclerView.ViewHolder {
@@ -125,6 +114,15 @@ public class ClassifyFragment extends Fragment {
 
             public Holder(View view) {
                 super(view);
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), ListActivity.class);
+                        intent.putExtra("name", listTitle.get(getAdapterPosition()));
+                        intent.putExtra("classify", getAdapterPosition()+"");
+                        startActivity(intent);
+                    }
+                });
                 relativeLayout = (RelativeLayout) view.findViewById(R.id.relativeLayout_classify);
                 imageView = (ImageView) view.findViewById(R.id.imageView_classify);
                 textView = (TextView) view.findViewById(R.id.textView_classify);

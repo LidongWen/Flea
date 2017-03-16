@@ -27,7 +27,7 @@ import static com.wenld.flea.common.SType.TYPE_SELL;
  * Created by wenld on 2017/3/12.
  */
 
-public class ListActivity extends BaseActivity {
+public class MyDeailActivity extends BaseActivity {
     public RecyclerView recyclerView_aty_list;
     CommonAdapter adapter;
     EmptyWrapper emptyWrapper;
@@ -36,8 +36,6 @@ public class ListActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
-        //todo 根据类别 获取数据
         data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher, TYPE_SELL, "1108888"));
         data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_SELL, "1108888"));
         data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_SELL, "1108888"));
@@ -45,13 +43,12 @@ public class ListActivity extends BaseActivity {
         data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher, TYPE_SELL, "1108888"));
         data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_SELL, "1108888"));
 
-        adapter.notifyDataSetChanged();
+
+        emptyWrapper.notifyDataSetChanged();
     }
 
     @Override
     protected void initView() {
-        classify = getIntent().getStringExtra("classify");
-        String name = getIntent().getStringExtra("name");
 
         new DefaultNavigationBar.Builder(this, null).setLeftIcon(R.drawable.activity_return).setLeftOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,13 +56,13 @@ public class ListActivity extends BaseActivity {
                 finish();
             }
         }).setRight("")
-                .setTitle(name).create();
+                .setTitle("我的商品").create();
 
         recyclerView_aty_list = (RecyclerView) findViewById(R.id.recyclerView_aty_list);
 
         recyclerView_aty_list.setLayoutManager(new StaggeredGridLayoutManager(2, GridLayoutManager.VERTICAL));
 
-        adapter = new CommonAdapter<Goods>(this, R.layout.list_home, data) {
+        adapter = new CommonAdapter<Goods>(this, R.layout.list_collect, data) {
             @Override
             protected void convert(ViewHolder holder, Goods user, int position) {
 
@@ -99,7 +96,7 @@ public class ListActivity extends BaseActivity {
                 return false;
             }
         });
-        emptyWrapper=new EmptyWrapper(adapter);
+        emptyWrapper = new EmptyWrapper(adapter);
         emptyWrapper.setEmptyView(R.layout.layout_empty);
         recyclerView_aty_list.setAdapter(emptyWrapper);
     }
@@ -118,5 +115,4 @@ public class ListActivity extends BaseActivity {
     protected void initListener() {
 
     }
-
 }
