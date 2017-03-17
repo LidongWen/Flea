@@ -1,6 +1,7 @@
 package com.wenld.flea.ui;
 
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -61,10 +62,10 @@ public class MyDeailActivity extends BaseActivity {
         recyclerView_aty_list = (RecyclerView) findViewById(R.id.recyclerView_aty_list);
 
         recyclerView_aty_list.setLayoutManager(new StaggeredGridLayoutManager(2, GridLayoutManager.VERTICAL));
-
+        recyclerView_aty_list.setItemAnimator(new DefaultItemAnimator());
         adapter = new CommonAdapter<Goods>(this, R.layout.list_collect, data) {
             @Override
-            protected void convert(ViewHolder holder, Goods user, int position) {
+            protected void convert(ViewHolder holder, Goods user, final int position) {
 
                 ImageView imageView = holder.getView(R.id.imageView_home);
                 if (!StringUtils.isEmpty(user.getPic_location()))
@@ -76,6 +77,7 @@ public class MyDeailActivity extends BaseActivity {
                             .dontAnimate()
                             .into(imageView);
                 }
+
 
                 holder.setText(R.id.textView_name, data.get(position).getTitle());
                 holder.setText(R.id.textView_price, String.format(getString(R.string.price_money), StringUtils.processNullStr(data.get(position).getPrice() + "")));

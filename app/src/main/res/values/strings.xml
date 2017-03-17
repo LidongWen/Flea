@@ -11,6 +11,7 @@
         <item>其他</item>
     </string-array>
 
-    <string name="price_money">价格 ：￥ %1$s!</string>
-    <string name="lianxifanshi">联系方式 ： %1$s!</string>
+    <string name="price_money">价格 ：￥ %1$s</string>
+    <string name="lianxifanshi">联系方式 ： %1$s</string>
+    <string name="qiugou">[求购:%1$S]</string>
 </resources>

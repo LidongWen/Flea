@@ -32,7 +32,7 @@ public class PermissionTest {
     @Around("executionAspectJ()")
     public Object aroundAspectJ(ProceedingJoinPoint joinPoint) throws Throwable {
         // TODO: 2017/3/9  后面要改成 !=
-        if (App.getInstance().user == null) {
+        if (App.getInstance().user != null) {
             return joinPoint.proceed();
         }
         if (Fragment.class.isInstance(joinPoint.getTarget())) {

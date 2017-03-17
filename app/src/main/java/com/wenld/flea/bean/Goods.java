@@ -20,6 +20,15 @@ public class Goods implements Serializable {
     private String pic_location;    //图片地址
 
     private int pic_Res = 0;
+    private boolean isCollect  ;//是否收藏
+
+    public boolean isCollect() {
+        return isCollect;
+    }
+
+    public void setCollect(boolean collect) {
+        isCollect = collect;
+    }
 
     public Goods() {
 
@@ -47,7 +56,6 @@ public class Goods implements Serializable {
         this.pic_location = pic_location;
         this.flag = flag;
     }
-
     public Goods(String title, float price, String describe, String userId, String classify, String time,
                  int pic_, int flag,String link) {
         super();
@@ -60,6 +68,21 @@ public class Goods implements Serializable {
         this.pic_Res = pic_;
         this.flag = flag;
         this.link=link;
+    }
+
+    public Goods(String title, float price, String describe, String userId, String classify, String time,
+                 int pic_, int flag,String link,boolean isCollect) {
+        super();
+        this.title = title;
+        this.price = price;
+        this.describe = describe;
+        this.user_id = userId;
+        this.classify = classify;
+        this.time = time;
+        this.pic_Res = pic_;
+        this.flag = flag;
+        this.link=link;
+        this.isCollect=isCollect;
     }
 
     public Goods(String goods_id, String title, float price, String describe, String classify, String contact, String time, int flag,

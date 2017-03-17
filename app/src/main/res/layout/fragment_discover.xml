@@ -18,7 +18,7 @@
     <Button
         android:layout_width="64dp"
         android:layout_height="30dp"
-        android:text="摊位"
+        android:text="商品"
         android:id="@+id/button_left_discover"
         android:background="@drawable/discover_tab_left_white"
         android:layout_marginBottom="8dp"

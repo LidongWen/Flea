@@ -6,21 +6,13 @@
     android:orientation="vertical"
     android:padding="@dimen/value_8">
 
-    <ImageView
-        android:id="@+id/iv_aty_detail"
-        android:layout_width="match_parent"
-        android:layout_height="320dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:scaleType="centerCrop" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tv_title_aty_detail"
+            android:id="@+id/tv_title_aty_detail_qiugou"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -37,12 +29,12 @@
             android:id="@+id/cb_de"
             android:layout_gravity="left"
             android:layout_marginLeft="@dimen/value_20"
-            android:layout_toRightOf="@+id/tv_title_aty_detail"
+            android:layout_toRightOf="@+id/tv_title_aty_detail_qiugou"
             android:button="@drawable/check_collect" />
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/tv_pic_aty_detail"
+        android:id="@+id/tv_pic_aty_detail_qiugou"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="9dp"
@@ -53,7 +45,7 @@
 
 
     <TextView
-        android:id="@+id/tv_link_aty_detail"
+        android:id="@+id/tv_link_aty_detail_qiugou"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="9dp"
@@ -62,7 +54,7 @@
         tools:text="这是联系方式" />
 
     <TextView
-        android:id="@+id/tv_memo_aty_detail"
+        android:id="@+id/tv_memo_aty_detail_qiugou"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView_price"

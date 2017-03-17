@@ -1,6 +1,7 @@
 package com.wenld.flea.ui.fragment.discover;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,13 +14,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.wenld.commontools.StringUtils;
 import com.wenld.flea.R;
 import com.wenld.flea.bean.Goods;
+import com.wenld.flea.common.SType;
+import com.wenld.flea.ui.DetailQiuGouActivity;
 import com.zhy.adapter.recyclerview.CommonAdapter;
+import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 import com.zhy.adapter.recyclerview.wrapper.EmptyWrapper;
 
 import java.util.ArrayList;
+
+import static com.wenld.flea.common.SType.TYPE_BUY;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,17 +58,23 @@ public class DiscoverRightFragment extends Fragment implements SwipeRefreshLayou
 
     void initView() {
         data = new ArrayList<>();
-        data.add(new Goods());
+        data.add(new Goods("美梦", 18, "想求购一张学姐水果的席梦思", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher, TYPE_BUY, "1108888",false));
+        data.add(new Goods("学姐", 18, "想求购一张学姐水果的席梦思", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_BUY, "1108888",false));
+        data.add(new Goods("美梦", 18, "想求购一张学姐水果的席梦思", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_BUY, "1108888",false));
+        data.add(new Goods("美梦", 18, "想求购一张学姐水果的席梦思", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher, TYPE_BUY, "1108888",false));
+        data.add(new Goods("美梦", 18, "想求购一张学姐水果的席梦思", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher, TYPE_BUY, "1108888",false));
+        data.add(new Goods("美梦", 18, "想求购一张学姐水果的席梦思", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_BUY, "1108888",false));
+
         adapter = new CommonAdapter<Goods>(getContext(), R.layout.list_discover_emption, data) {
             @Override
             protected void convert(ViewHolder holder, Goods user, int position) {
 
                 ImageView imageView = holder.getView(R.id.dis_right_sd);
-                Glide.with(holder.getConvertView().getContext()).load(user.getPic_location())
+                Glide.with(holder.getConvertView().getContext()).load(user.getPic_location()).placeholder(R.mipmap.timg)
                         .dontAnimate()
                         .into(imageView);
 
-                holder.setText(R.id.dis_right_classify, user.getClassify());
+                holder.setText(R.id.dis_right_classify, String.format(getString(R.string.qiugou), StringUtils.processNullStr(user.getTitle())));
                 holder.setText(R.id.dis_right_describe, user.getDescribe());
                 holder.setText(R.id.dis_right_author, user.getUser_id());
                 holder.setText(R.id.textView_purchase_time, user.getTime());
@@ -73,6 +86,20 @@ public class DiscoverRightFragment extends Fragment implements SwipeRefreshLayou
         emptyWrapper = new EmptyWrapper(adapter);
         emptyWrapper.setEmptyView(R.layout.layout_empty);
         recyclerView.setAdapter(emptyWrapper);
+
+        adapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<Goods>() {
+            @Override
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, Goods o, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(SType.intent_Detail, o);
+                readyGo(DetailQiuGouActivity.class, bundle);
+            }
+
+            @Override
+            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, Goods o, int position) {
+                return false;
+            }
+        });
     }
 
 
@@ -81,5 +108,12 @@ public class DiscoverRightFragment extends Fragment implements SwipeRefreshLayou
         mSwipeLayout.setRefreshing(false);
         emptyWrapper.notifyDataSetChanged();
     }
+    protected void readyGo(Class<?> clazz, Bundle bundle) {
+        Intent intent = new Intent(this.getActivity(), clazz);
+        if(null != bundle) {
+            intent.putExtras(bundle);
+        }
 
+        this.startActivity(intent);
+    }
 }

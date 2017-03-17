@@ -1,6 +1,7 @@
 package com.wenld.flea.ui;
 
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ public class DetailActivity extends BaseActivity {
     public TextView tv_pic_aty_detail;
     public TextView tv_link_aty_detail;
     public TextView tv_memo_aty_detail;
+    CheckBox cb_de;
 
     Goods goods;
 
@@ -44,6 +46,7 @@ public class DetailActivity extends BaseActivity {
         tv_title_aty_detail.setText(StringUtils.processNullStr(goods.getTitle()));
         tv_memo_aty_detail.setText(StringUtils.processNullStr(goods.getDescribe()));
         tv_link_aty_detail.setText(String.format(getString(R.string.lianxifanshi), StringUtils.processNullStr(goods.getLink() + "")));
+        cb_de.setChecked(goods.isCollect());
     }
 
     @Override
@@ -62,7 +65,7 @@ public class DetailActivity extends BaseActivity {
         this.tv_pic_aty_detail = (TextView) findViewById(R.id.tv_pic_aty_detail);
         this.tv_link_aty_detail = (TextView) findViewById(R.id.tv_link_aty_detail);
         this.tv_memo_aty_detail = (TextView) findViewById(R.id.tv_memo_aty_detail);
-
+        cb_de = (CheckBox) findViewById(R.id.cb_de);
 
     }
 

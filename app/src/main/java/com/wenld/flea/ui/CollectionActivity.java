@@ -1,10 +1,13 @@
 package com.wenld.flea.ui;
 
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -36,12 +39,12 @@ public class CollectionActivity extends BaseActivity {
     @Override
     protected void initData() {
 
-        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher, TYPE_SELL, "1108888"));
-        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_SELL, "1108888"));
-        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_SELL, "1108888"));
-        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher, TYPE_SELL, "1108888"));
-        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher, TYPE_SELL, "1108888"));
-        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_SELL, "1108888"));
+        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher, TYPE_SELL, "1108888",true));
+        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_SELL, "1108888",true));
+        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_SELL, "1108888",true));
+        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher, TYPE_SELL, "1108888",true));
+        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher, TYPE_SELL, "1108888",true));
+        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_SELL, "1108888",true));
 
         adapter.notifyDataSetChanged();
     }
@@ -57,13 +60,15 @@ public class CollectionActivity extends BaseActivity {
                 .setTitle("我的收藏").create();
 
         recyclerView_aty_list = (RecyclerView) findViewById(R.id.recyclerView_aty_list);
-
+        recyclerView_aty_list.setItemAnimator(new DefaultItemAnimator());
         recyclerView_aty_list.setLayoutManager(new StaggeredGridLayoutManager(2, GridLayoutManager.VERTICAL));
 
         adapter = new CommonAdapter<Goods>(this, R.layout.list_home, data) {
             @Override
-            protected void convert(ViewHolder holder, Goods user, int position) {
+            protected void convert(ViewHolder holder, Goods user,final int position) {
 
+                CheckBox checkBox = holder.getView(R.id.cb_aty_detail);
+                checkBox.setChecked(user.isCollect());
                 ImageView imageView = holder.getView(R.id.imageView_home);
                 if (!StringUtils.isEmpty(user.getPic_location()))
                     Glide.with(holder.getConvertView().getContext()).load(user.getPic_location())
@@ -74,7 +79,15 @@ public class CollectionActivity extends BaseActivity {
                             .dontAnimate()
                             .into(imageView);
                 }
-
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (!isChecked) {
+                            data.remove(position);
+                            emptyWrapper.notifyDataSetChanged();
+                        }
+                    }
+                });
                 holder.setText(R.id.textView_name, data.get(position).getTitle());
                 holder.setText(R.id.textView_price, String.format(getString(R.string.price_money), StringUtils.processNullStr(data.get(position).getPrice() + "")));
             }
