@@ -15,6 +15,8 @@ import com.wenld.flea.ui.fragment.home.HomeFragment;
 import com.wenld.flea.ui.fragment.more.MoreFragment;
 import com.wenld.flea.ui.tab.TabEntity;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 
 //import butterknife.BindView;
@@ -32,7 +34,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        EventBus.getDefault().postSticky("ssss");
         for (String title : mTitles) {
             mFragments.add(new ClassifyFragment());
         }
@@ -117,6 +119,8 @@ public class MainActivity extends BaseActivity {
         }
 
     };
+
+
 
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private String[] mTitles = {"首页", "消息", "联系人", "更多"};

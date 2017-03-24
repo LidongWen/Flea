@@ -14,6 +14,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class EventBusWenld {
     private static EventBusWenld ourInstance;
+
+    //存放 Object  以及   List<EventType>
+    private final Map<Object, List<Class<?>>> typesBySubscriber;
+
     private Map<Class<?>, CopyOnWriteArrayList<SubscriberMethodWenld>> cacheMap;
 
     public static EventBusWenld getDefault() {
@@ -29,6 +33,7 @@ public class EventBusWenld {
 
     private EventBusWenld() {
         cacheMap = new HashMap<>();
+        typesBySubscriber = new HashMap<>();
     }
 
     public void register(Object subscriber) {

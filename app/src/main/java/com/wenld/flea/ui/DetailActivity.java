@@ -6,12 +6,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.wenld.commontools.LogUtil;
 import com.wenld.commontools.StringUtils;
 import com.wenld.flea.R;
 import com.wenld.flea.base.BaseActivity;
 import com.wenld.flea.base.DefaultNavigationBar;
 import com.wenld.flea.bean.Goods;
 import com.wenld.flea.common.SType;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * Created by wenld on 2017/3/12.
@@ -66,7 +70,7 @@ public class DetailActivity extends BaseActivity {
         this.tv_link_aty_detail = (TextView) findViewById(R.id.tv_link_aty_detail);
         this.tv_memo_aty_detail = (TextView) findViewById(R.id.tv_memo_aty_detail);
         cb_de = (CheckBox) findViewById(R.id.cb_de);
-
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -84,4 +88,15 @@ public class DetailActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    @Subscribe(sticky = true)
+    public void Test(String str){
+        String  aa=str;
+        LogUtil.e("sa",""+aa);
+    }
 }
