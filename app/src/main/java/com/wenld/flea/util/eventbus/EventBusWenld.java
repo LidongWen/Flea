@@ -37,15 +37,25 @@ public class EventBusWenld {
     }
 
     public void register(Object subscriber) {
-        Class<?> subscriberClass = subscriber.getClass();
-        List<SubscriberMethodWenld> subscriberMethods = cacheMap.get(subscriberClass);
+//
+        List<SubscriberMethodWenld> subscriberMethods = cacheMap.get(subscriber);
         synchronized (this) {
            if(subscriberMethods==null){
-//               subscribe(subscriber,);
+               subscriber(subscriber);
            }
         }
     }
+
+
+
+    public void unRegister(Object subscriber) {
+
+    }
     public void post(Object obj) {
+
+    }
+
+    private void subscriber(Object subscriber) {
 
     }
 }

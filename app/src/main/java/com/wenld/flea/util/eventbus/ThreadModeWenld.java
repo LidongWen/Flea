@@ -15,7 +15,7 @@ public enum  ThreadModeWenld {
      * the main thread, event handler methods will be called directly. Event handlers using this mode must return
      * quickly to avoid blocking the main thread.
      */
-    MAIN,
+        MAIN,
 
     /**
      * Subscriber will be called in a background thread. If posting thread is not the main thread, event handler methods

@@ -19,6 +19,7 @@ import com.wenld.flea.R;
 import com.wenld.flea.bean.Goods;
 import com.wenld.flea.common.SType;
 import com.wenld.flea.ui.DetailQiuGouActivity;
+import com.wenld.flea.view.AutoRecycleDevider;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -100,6 +101,7 @@ public class DiscoverRightFragment extends Fragment implements SwipeRefreshLayou
                 return false;
             }
         });
+        recyclerView.addItemDecoration(new AutoRecycleDevider(getContext(), LinearLayoutManager.VERTICAL));
     }
 
 

@@ -123,12 +123,12 @@ public class MainActivity extends BaseActivity {
 
 
     private ArrayList<Fragment> mFragments = new ArrayList<>();
-    private String[] mTitles = {"首页", "消息", "联系人", "更多"};
+    private String[] mTitles = {"首页", "发现", "分类", "更多"};
     private int[] mIconUnselectIds = {
-            R.mipmap.tab_home_unselect, R.mipmap.tab_speech_unselect,
-            R.mipmap.tab_contact_unselect, R.mipmap.tab_more_unselect};
+            R.mipmap.byr, R.mipmap.byn,
+            R.mipmap.byl, R.mipmap.byt};
     private int[] mIconSelectIds = {
-            R.mipmap.tab_home_select, R.mipmap.tab_speech_select,
-            R.mipmap.tab_contact_select, R.mipmap.tab_more_select};
+            R.mipmap.bys, R.mipmap.byo,
+            R.mipmap.bym, R.mipmap.byu};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 }

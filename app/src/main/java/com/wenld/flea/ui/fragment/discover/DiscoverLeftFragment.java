@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.wenld.flea.bean.Goods;
 import com.wenld.flea.bean.User;
 import com.wenld.flea.common.SType;
 import com.wenld.flea.ui.DetailActivity;
+import com.wenld.flea.view.AutoRecycleDevider;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -92,6 +94,7 @@ public class DiscoverLeftFragment extends Fragment implements SwipeRefreshLayout
                 return false;
             }
         });
+        recyclerView.addItemDecoration(new AutoRecycleDevider(getContext(), LinearLayoutManager.VERTICAL));
     }
 
     @Override
