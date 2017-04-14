@@ -28,7 +28,7 @@ import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
 
 import static com.luck.picture.lib.model.FunctionConfig.COPY_MODEL_1_1;
-import static com.luck.picture.lib.model.FunctionConfig.MODE_MULTIPLE;
+import static com.luck.picture.lib.model.FunctionConfig.MODE_SINGLE;
 
 
 public class SaleActivity extends BaseActivity {
@@ -170,7 +170,8 @@ public class SaleActivity extends BaseActivity {
         config.setCopyMode(COPY_MODEL_1_1);
         config.setCompress(false); //是否压缩
         config.setMaxSelectNum(1); //最大可选数量
-        config.setSelectMode(MODE_MULTIPLE);
+//        config.setSelectMode(MODE_MULTIPLE);
+        config.setSelectMode(MODE_SINGLE);
         config.setShowCamera(false); //是否显示相机
         config.setEnablePreview(true); //是否预览
         config.setEnableCrop(false); //是否裁剪

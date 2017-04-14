@@ -7,8 +7,11 @@ import android.support.v4.view.ViewPager;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.wenld.baselib.http.callback.EngineCallBack;
 import com.wenld.flea.R;
 import com.wenld.flea.base.BaseActivity;
+import com.wenld.flea.common.BaseDataModel;
+import com.wenld.flea.common.ESApi;
 import com.wenld.flea.ui.fragment.discover.DiscoverFragment;
 import com.wenld.flea.ui.fragment.fenlei.ClassifyFragment;
 import com.wenld.flea.ui.fragment.home.HomeFragment;
@@ -51,6 +54,17 @@ public class MainActivity extends BaseActivity {
 
         vp_2.setCurrentItem(0);
         vp_2.setOffscreenPageLimit(mFragments.size());
+        ESApi.account("admin","admin","admin","10111111111", new EngineCallBack<BaseDataModel>() {
+            @Override
+            public void onError(Exception e, int i) {
+
+            }
+
+            @Override
+            public void onResponse(BaseDataModel baseDataModel, int i) {
+                BaseDataModel a= baseDataModel;
+            }
+        });
     }
 
     @Override

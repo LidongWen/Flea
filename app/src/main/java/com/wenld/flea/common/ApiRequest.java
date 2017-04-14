@@ -2,6 +2,8 @@ package com.wenld.flea.common;
 
 import android.net.Uri;
 
+import com.wenld.baselib.http.HttpUtils;
+import com.wenld.baselib.http.callback.EngineCallBack;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
 
@@ -16,9 +18,9 @@ import java.util.Map;
 public class ApiRequest {
     private static final String mParameter = "parameter";
     private static final String mToken = "token";
-    private static OkHttpUtils instance = OkHttpUtils.getInstance();
+    private static HttpUtils instance = HttpUtils.getInstance();
 
-    public static void postAPI(String url, Map<String, String> params, BaseApiCallback callback) {
+    public static void postAPI(String url, Map<String, String> params, EngineCallBack callback) {
         String content = Judgeurl(url);
         instance.post()
                 .url(content)
@@ -32,7 +34,7 @@ public class ApiRequest {
 //                .execute(callback);
     }
 
-    public static void getAPI(String url, Map<String, String> params, BaseApiCallback callback) {
+    public static void getAPI(String url, Map<String, String> params, EngineCallBack callback) {
         String content = ApiRequest.UrlBuide(Judgeurl(url), params);
         instance.post()
                 .url(content)
@@ -51,7 +53,7 @@ public class ApiRequest {
                 .execute(callback);
     }
 
-    public static void postLargeAPI(Map<String, String> params, BaseApiCallback callback) {
+    public static void postLargeAPI(Map<String, String> params, EngineCallBack callback) {
 //        String content = ApiRequest.UrlBuide(Const.URL, params);
         instance.post()
                 .url(AppConfig.URL)
@@ -65,13 +67,6 @@ public class ApiRequest {
 //                .execute(callback);
     }
 
-    public static void postAPI(String url, Map<String, String> params, Callback callback) {
-        String content = ApiRequest.UrlBuide(Judgeurl(url), params);
-        instance.post()
-                .url(content)
-                .build()
-                .execute(callback);
-    }
 
     /**
      * 带  header post请求
@@ -80,7 +75,7 @@ public class ApiRequest {
      * @param headers
      * @param callback
      */
-    public static void postAPIandHeader(Map<String, String> params, Map<String, String> headers, Callback callback) {
+    public static void postAPIandHeader(Map<String, String> params, Map<String, String> headers, EngineCallBack callback) {
         String content = ApiRequest.UrlBuide(AppConfig.URL, params);
         instance.post()
                 .url(content)
@@ -97,7 +92,7 @@ public class ApiRequest {
      * @param headers
      * @param callback
      */
-    public static void postAPIandHeader(String url, Map<String, String> params, Map<String, String> headers, Callback callback) {
+    public static void postAPIandHeader(String url, Map<String, String> params, Map<String, String> headers, EngineCallBack callback) {
         String content = ApiRequest.UrlBuide(url, params);
         instance.post()
                 .url(content)
@@ -111,7 +106,7 @@ public class ApiRequest {
      * 描述:上传
      * Created by Vamoose on 2016/2/17.
      */
-    public static void uploadAPI(String url, String uploadName, Map<String, String> headers, File file, Callback callback) {
+    public static void uploadAPI(String url, String uploadName, Map<String, String> headers, File file, EngineCallBack callback) {
         instance.post()
                 .addFile(uploadName, file.getName(), file)
                 .url(url)

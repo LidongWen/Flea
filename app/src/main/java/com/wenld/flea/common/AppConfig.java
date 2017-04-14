@@ -13,7 +13,7 @@ public class AppConfig {
     public static final int HTTP_UPLOAD_TIMEOUT = 30;    //上传超时时间-单位秒
     public static final int scrolleTime = 5000;   //广告切换时间
 
-    public static final String SUCCESS_CODE = "200";
+    public static final String SUCCESS_CODE = "0";
     public static final String REALESE_URL = "https://app.qipai.com/qiyun/index.php";
     public static String URL = REALESE_URL;//"http://61.131.48.180:11380/";
 

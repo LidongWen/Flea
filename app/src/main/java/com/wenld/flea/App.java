@@ -2,8 +2,10 @@ package com.wenld.flea;
 
 import android.app.Application;
 
+import com.wenld.baselib.http.HttpUtils;
 import com.wenld.commontools.AllUtilConfig;
 import com.wenld.flea.bean.User;
+import com.wenld.flea.common.ZhyHttpEngine;
 
 /**
  * <p/>
@@ -20,11 +22,14 @@ public class App extends Application {
         super.onCreate();
         AllUtilConfig.LogSwitch = true;
         globalInfo = this;
+        HttpUtils.initHttpEngine(new ZhyHttpEngine());
     }
 
 
     public static App getInstance() {
         return globalInfo;
     }
-
+    public static void logonOut(){
+        user=null;
+    }
 }

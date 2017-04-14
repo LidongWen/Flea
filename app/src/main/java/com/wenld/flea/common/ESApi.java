@@ -1,6 +1,8 @@
 package com.wenld.flea.common;
 
 
+import com.wenld.baselib.http.callback.EngineCallBack;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +27,7 @@ public class ESApi {
      * @param name
      * @param baseApiCallback
      */
-    public static void commodityList(String name,String flag, BaseApiCallback baseApiCallback) {
+    public static void commodityList(String name, String flag, BaseApiCallback baseApiCallback) {
         Map<String, String> paramsMap = new HashMap<>();
 //        paramsMap.put("controller", "user");
         paramsMap.put("method", "requestList");
@@ -57,16 +59,19 @@ public class ESApi {
 
     /**
      * 注册
+     *
      * @param user_id
      * @param user_password
      * @param baseApiCallback
      */
-    public static void account(String user_id, String user_password, BaseApiCallback baseApiCallback) {
+    public static void account(String user_id, String user_password, String un, String tel, EngineCallBack baseApiCallback) {
         Map<String, String> paramsMap = new HashMap<>();
 //        paramsMap.put("controller", "user");
-        paramsMap.put("method", "registered");
-        paramsMap.put("user_id", user_id);
-        paramsMap.put("user_password", user_password);
-        ApiRequest.postAPI(AppConfig.URL, paramsMap, baseApiCallback);
+        paramsMap.put("method", "add");
+        paramsMap.put("ua", user_id);
+        paramsMap.put("up", user_password);
+        paramsMap.put("un", un);
+        paramsMap.put("tel", tel);
+        ApiRequest.postAPI("http://wanghong.magic-future.com/loginaction.php", paramsMap, baseApiCallback);
     }
 }

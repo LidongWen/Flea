@@ -101,7 +101,6 @@ public class HomeFragment extends BaseLazyFragment {
 
     @Override
     protected void DetoryViewAndThing() {
-
     }
 
     @Override

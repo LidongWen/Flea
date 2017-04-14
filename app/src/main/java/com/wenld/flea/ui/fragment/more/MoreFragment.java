@@ -6,6 +6,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wenld.baselib.fragment.BaseLazyFragment;
+import com.wenld.flea.App;
 import com.wenld.flea.R;
 import com.wenld.flea.ui.AboutActivity;
 import com.wenld.flea.ui.CollectionActivity;
@@ -26,6 +27,7 @@ public class MoreFragment extends BaseLazyFragment {
     public LinearLayout myInfo;
     public LinearLayout mydeail;
     public LinearLayout aboutMe;
+    public LinearLayout logonOut;
 
     @Override
     protected int getContentViewLayoutID() {
@@ -56,6 +58,7 @@ public class MoreFragment extends BaseLazyFragment {
         this.myInfo = (LinearLayout) rootView.findViewById(R.id.myInfo);
         this.mydeail = (LinearLayout) rootView.findViewById(R.id.mydeail);
         this.aboutMe = (LinearLayout) rootView.findViewById(R.id.aboutMe);
+        this.logonOut = (LinearLayout) rootView.findViewById(R.id.logonOut);
 
         layout_myCollection.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +77,12 @@ public class MoreFragment extends BaseLazyFragment {
             public void onClick(View v) {
                 readyGo(AboutActivity.class);
 
+            }
+        });
+        logonOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                App.getInstance().logonOut();
             }
         });
     }

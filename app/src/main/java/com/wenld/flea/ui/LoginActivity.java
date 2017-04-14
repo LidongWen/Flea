@@ -1,6 +1,5 @@
 package com.wenld.flea.ui;
 
-import android.app.ProgressDialog;
 import android.support.v7.widget.AppCompatButton;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,6 +11,8 @@ import com.wenld.flea.App;
 import com.wenld.flea.R;
 import com.wenld.flea.base.BaseActivity;
 import com.wenld.flea.bean.User;
+import com.wenld.flea.common.BaseApiCallback;
+import com.wenld.flea.common.ESApi;
 
 import static com.wenld.flea.R.id.btn_login;
 import static com.wenld.flea.R.id.input_email;
@@ -50,11 +51,11 @@ public class LoginActivity extends BaseActivity {
 
         _loginButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
-                R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
-        progressDialog.show();
+//        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
+//                R.style.AppTheme_Dark_Dialog);
+//        progressDialog.setIndeterminate(true);
+//        progressDialog.setMessage("Authenticating...");
+//        progressDialog.show();
 
         email = _emailText.getText().toString();
         password = _passwordText.getText().toString();
@@ -109,7 +110,7 @@ public class LoginActivity extends BaseActivity {
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            _passwordText.setError("between 4 and 10 alphanumeric characters");
+            _passwordText.setError("密码 4-10 位");
             valid = false;
         } else {
             _passwordText.setError(null);
@@ -150,7 +151,21 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
+                if(validate()) {
+                    ESApi.account("admin","admin","admin","10111111111", new BaseApiCallback() {
+                        @Override
+                        protected void onAPISuccess(String data) {
 
+                        }
+
+                        @Override
+                        protected void onAPIFailure(String msg) {
+
+                        }
+                    });
+                }else{
+
+                }
             }
         });
     }

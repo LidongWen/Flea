@@ -1,49 +1,32 @@
 package com.wenld.flea.common;
 
-import com.wenld.commontools.FastJsonUtil;
+import com.wenld.baselib.http.callback.EngineCallBack;
 import com.wenld.commontools.LogUtil;
 import com.wenld.commontools.StringUtils;
-import com.zhy.http.okhttp.callback.Callback;
-
-import okhttp3.Call;
-import okhttp3.Response;
 
 
 /**
  * Created by Wenld on 2016/06/27.
  */
-public abstract class BaseApiCallback extends Callback<BaseDataModel> {
-    @Override
-    public BaseDataModel parseNetworkResponse(Response response, int id) {
-        try {
-            String aa = response.body().string();
-            LogUtil.i("TAG-->", "" + aa);
-
-            return FastJsonUtil.getObject(aa, BaseDataModel.class);
-        } catch (Exception e) {
-//            LogUtil.e("BaseApiCallback解析异常" + response.body());
-            e.printStackTrace();
-            return new BaseDataModel();
-        }
-    }
+public abstract class BaseApiCallback extends EngineCallBack<BaseDataModel> {
 
     @Override
-    public void onError(Call request, Exception e, int id) { //客户端异常
+    public void onError( Exception e, int id) { //客户端异常
 //        onClientError(request + e.toString());
     }
 
     @Override
     public void onResponse(BaseDataModel response, int id) {
-        if (response == null || response.getCode() == null) {
+        if (response == null ) {
             onClientError("接口返回异常");
             return;
         }
-        switch (response.getCode()) {
+        switch (response.getErr()) {
             case AppConfig.SUCCESS_CODE://0:成功
                 onAPISuccess(StringUtils.processNullStr(response.getData()));
                 break;
             default://其他类型的错误消息
-                onAPIFailure(StringUtils.processNullStr(response.getMessage()));
+                onAPIFailure(StringUtils.processNullStr(response.getMsg()));
                 break;
         }
     }

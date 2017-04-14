@@ -123,4 +123,24 @@
     <View
         style="@style/line_horizontal"
         android:layout_width="match_parent" />
+
+    <LinearLayout
+        style="@style/rlt_fragment_mine"
+        android:orientation="horizontal"
+        android:id="@+id/logonOut">
+
+        <ImageView
+            style="@style/iv_icon_fragment_mine"
+            android:layout_marginLeft="@dimen/value_10"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            style="@style/tv_list_fragment_mine"
+            android:layout_toRightOf="@+id/iv_pay_fragment_mine_2"
+            android:text="退出" />
+    </LinearLayout>
+
+    <View
+        style="@style/line_horizontal"
+        android:layout_width="match_parent" />
 </LinearLayout>
