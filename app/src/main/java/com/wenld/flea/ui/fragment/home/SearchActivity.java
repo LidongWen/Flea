@@ -67,7 +67,7 @@ public class SearchActivity extends BaseActivity {
             protected void convert(ViewHolder holder, Goods user, int position) {
 
                 ImageView imageView = holder.getView(R.id.imageView_home);
-                Glide.with(holder.getConvertView().getContext()).load(user.getPic_location())
+                Glide.with(holder.getConvertView().getContext()).load(user.getImg())
                         .dontAnimate()
                         .into(imageView);
 

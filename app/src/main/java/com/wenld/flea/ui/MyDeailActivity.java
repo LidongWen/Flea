@@ -9,11 +9,15 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.wenld.commontools.FastJsonUtil;
 import com.wenld.commontools.StringUtils;
 import com.wenld.flea.R;
+import com.wenld.flea.aop.LogonPermission;
 import com.wenld.flea.base.BaseActivity;
 import com.wenld.flea.base.DefaultNavigationBar;
 import com.wenld.flea.bean.Goods;
+import com.wenld.flea.common.BaseApiCallback;
+import com.wenld.flea.common.ESApi;
 import com.wenld.flea.common.SType;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
@@ -21,8 +25,6 @@ import com.zhy.adapter.recyclerview.base.ViewHolder;
 import com.zhy.adapter.recyclerview.wrapper.EmptyWrapper;
 
 import java.util.ArrayList;
-
-import static com.wenld.flea.common.SType.TYPE_SELL;
 
 /**
  * Created by wenld on 2017/3/12.
@@ -32,20 +34,26 @@ public class MyDeailActivity extends BaseActivity {
     public RecyclerView recyclerView_aty_list;
     CommonAdapter adapter;
     EmptyWrapper emptyWrapper;
-    ArrayList<Goods> data = new ArrayList<>();
-    String classify;
+    ArrayList<Goods> dataList = new ArrayList<>();
 
+    @LogonPermission
     @Override
     protected void initData() {
-        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher, TYPE_SELL, "1108888"));
-        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_SELL, "1108888"));
-        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_SELL, "1108888"));
-        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher, TYPE_SELL, "1108888"));
-        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher, TYPE_SELL, "1108888"));
-        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_SELL, "1108888"));
 
+        ESApi.getMyGoods(new BaseApiCallback() {
+            @Override
+            protected void onAPISuccess(String data) {
+                dataList.clear();
+                dataList.addAll(FastJsonUtil.getListObjects(data,Goods.class));
+                emptyWrapper.notifyDataSetChanged();
+            }
 
-        emptyWrapper.notifyDataSetChanged();
+            @Override
+            protected void onAPIFailure(String msg) {
+
+            }
+        });
+
     }
 
     @Override
@@ -63,24 +71,17 @@ public class MyDeailActivity extends BaseActivity {
 
         recyclerView_aty_list.setLayoutManager(new StaggeredGridLayoutManager(2, GridLayoutManager.VERTICAL));
         recyclerView_aty_list.setItemAnimator(new DefaultItemAnimator());
-        adapter = new CommonAdapter<Goods>(this, R.layout.list_collect, data) {
+        adapter = new CommonAdapter<Goods>(this, R.layout.list_collect, dataList) {
             @Override
             protected void convert(ViewHolder holder, Goods user, final int position) {
 
                 ImageView imageView = holder.getView(R.id.imageView_home);
-                if (!StringUtils.isEmpty(user.getPic_location()))
-                    Glide.with(holder.getConvertView().getContext()).load(user.getPic_location())
+                    Glide.with(holder.getConvertView().getContext()).load(user.getImg())
                             .dontAnimate()
                             .into(imageView);
-                else {
-                    Glide.with(holder.getConvertView().getContext()).load(user.getPic_Res())
-                            .dontAnimate()
-                            .into(imageView);
-                }
 
-
-                holder.setText(R.id.textView_name, data.get(position).getTitle());
-                holder.setText(R.id.textView_price, String.format(getString(R.string.price_money), StringUtils.processNullStr(data.get(position).getPrice() + "")));
+                holder.setText(R.id.textView_name, dataList.get(position).getTitle());
+                holder.setText(R.id.textView_price, String.format(getString(R.string.price_money), StringUtils.processNullStr(dataList.get(position).getPrice() + "")));
             }
         };
 

@@ -42,8 +42,8 @@ public class DetailQiuGouActivity extends BaseActivity {
         tv_pic_aty_detail_qiugou.setText(String.format(getString(R.string.price_money), StringUtils.processNullStr(goods.getPrice() + "")));
         tv_title_aty_detail_qiugou.setText(String.format(getString(R.string.qiugou), StringUtils.processNullStr(goods.getTitle())));
         tv_memo_aty_detail_qiugou.setText(StringUtils.processNullStr(goods.getDescribe()));
-        tv_link_aty_detail_qiugou.setText(String.format(getString(R.string.lianxifanshi), StringUtils.processNullStr(goods.getLink() + "")));
-        cb_de.setChecked(goods.isCollect());
+        tv_link_aty_detail_qiugou.setText(String.format(getString(R.string.lianxifanshi), StringUtils.processNullStr(goods.getContact() + "")));
+        cb_de.setChecked("1".equals(goods.getStatus()));
     }
 
     @Override

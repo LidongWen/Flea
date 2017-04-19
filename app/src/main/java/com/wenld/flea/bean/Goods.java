@@ -6,192 +6,85 @@ import java.io.Serializable;
  * 物品实体类
  */
 public class Goods implements Serializable {
-    private String goods_id;    //自定义的物品id
-    private String title;        //名字
-    private float price;        //价格
-    private String describe;    //描述
-    private String classify;    //分类
-    private String contact;     //描述
-    private String time;           //时间
-    private int flag;            //1：出售		0：求购
-    private String user_id;     //用户名
-    private String link;//联系方式
-
-    private String pic_location;    //图片地址
-
-    private int pic_Res = 0;
-    private boolean isCollect  ;//是否收藏
-
-    public boolean isCollect() {
-        return isCollect;
-    }
-
-    public void setCollect(boolean collect) {
-        isCollect = collect;
-    }
-
-    public Goods() {
-
-    }
 
     /**
-     * @param title
-     * @param price
-     * @param describe
-     * @param userId
-     * @param flag
-     * @param classify
+     * id : 4
+     * uid : 4
+     * title : 一缕阳光
+     * img :
+     * price : 19
+     * describe : 在漆黑的世界，一缕阳光是多么重要
+     * classify : 0
+     * contact : 手机18234567411
+     * addtime : 0000-00-00 00:00:00
+     * status : 1
      */
 
+    private String id;
+    private String uid;
+    private String title;
+    private String img;
+    private String price;
+    private String describe;
+    private String classify;
+    private String contact;
+    private String addtime;
+    private String status;
 
-    public Goods(String title, float price, String describe, String userId, String classify, String time,
-                 String pic_location, int flag) {
-        super();
-        this.title = title;
-        this.price = price;
-        this.describe = describe;
-        this.user_id = userId;
-        this.classify = classify;
-        this.time = time;
-        this.pic_location = pic_location;
-        this.flag = flag;
-    }
-    public Goods(String title, float price, String describe, String userId, String classify, String time,
-                 int pic_, int flag,String link) {
-        super();
-        this.title = title;
-        this.price = price;
-        this.describe = describe;
-        this.user_id = userId;
-        this.classify = classify;
-        this.time = time;
-        this.pic_Res = pic_;
-        this.flag = flag;
-        this.link=link;
+    public String getId() {
+        return id;
     }
 
-    public Goods(String title, float price, String describe, String userId, String classify, String time,
-                 int pic_, int flag,String link,boolean isCollect) {
-        super();
-        this.title = title;
-        this.price = price;
-        this.describe = describe;
-        this.user_id = userId;
-        this.classify = classify;
-        this.time = time;
-        this.pic_Res = pic_;
-        this.flag = flag;
-        this.link=link;
-        this.isCollect=isCollect;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public Goods(String goods_id, String title, float price, String describe, String classify, String contact, String time, int flag,
-                 String user_id, String pic_location) {
-        this.goods_id = goods_id;
-        this.title = title;
-        this.price = price;
-        this.describe = describe;
-        this.classify = classify;
-        this.contact = contact;
-        this.time = time;
-        this.flag = flag;
-        this.user_id = user_id;
-        this.pic_location = pic_location;
+    public String getUid() {
+        return uid;
     }
 
-    /**
-     * @return the title
-     */
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
     public String getTitle() {
         return title;
     }
 
-    /**
-     * @param title the title to set
-     */
     public void setTitle(String title) {
         this.title = title;
     }
 
-    /**
-     * @return the price
-     */
-    public float getPrice() {
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getPrice() {
         return price;
     }
 
-    /**
-     * @param price the price to set
-     */
-    public void setPrice(float price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    /**
-     * @return the describe
-     */
     public String getDescribe() {
         return describe;
     }
 
-    /**
-     * @param describe the describe to set
-     */
     public void setDescribe(String describe) {
         this.describe = describe;
     }
 
-    /**
-     * @return the classify
-     */
     public String getClassify() {
         return classify;
     }
 
-
-    /**
-     * @param classify the classify to set
-     */
     public void setClassify(String classify) {
         this.classify = classify;
-    }
-
-    /**
-     * @return the time
-     */
-    public String getTime() {
-        return time;
-    }
-
-    /**
-     * @param time the time to set
-     */
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public int getFlag() {
-        return flag;
-    }
-
-    public void setFlag(int flag) {
-        this.flag = flag;
-    }
-
-    public String getPic_location() {
-        return pic_location;
-    }
-
-    public void setPic_location(String pic_location) {
-        this.pic_location = pic_location;
-    }
-
-    public String getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
     }
 
     public String getContact() {
@@ -202,41 +95,19 @@ public class Goods implements Serializable {
         this.contact = contact;
     }
 
-    public String getGoods_id() {
-        return goods_id;
+    public String getAddtime() {
+        return addtime;
     }
 
-    public void setGoods_id(String goods_id) {
-        this.goods_id = goods_id;
+    public void setAddtime(String addtime) {
+        this.addtime = addtime;
     }
 
-    @Override
-    public String toString() {
-        return "Goods{" +
-                ", title='" + title + '\'' +
-                ", price=" + price +
-                ", describe='" + describe + '\'' +
-                ", classify='" + classify + '\'' +
-                ", time=" + time +
-                ", flag=" + flag +
-                ".pic_Res=" + pic_Res +
-                ", pic_location='" + pic_location + '\'' +
-                '}';
+    public String getStatus() {
+        return status;
     }
 
-    public int getPic_Res() {
-        return pic_Res;
-    }
-
-    public void setPic_Res(int pic_Res) {
-        this.pic_Res = pic_Res;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

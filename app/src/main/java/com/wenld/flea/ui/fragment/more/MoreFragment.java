@@ -4,13 +4,18 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.wenld.baselib.fragment.BaseLazyFragment;
 import com.wenld.flea.App;
 import com.wenld.flea.R;
 import com.wenld.flea.ui.AboutActivity;
 import com.wenld.flea.ui.CollectionActivity;
 import com.wenld.flea.ui.MyDeailActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * <p/>
@@ -83,12 +88,25 @@ public class MoreFragment extends BaseLazyFragment {
             @Override
             public void onClick(View v) {
                 App.getInstance().logonOut();
+                Toast.makeText(v.getContext(), "退出登录成功", Toast.LENGTH_SHORT).show();
             }
         });
+        changeInfo(new LogonEvent());
+        EventBus.getDefault().register(this);
     }
 
     @Override
     protected void DetoryViewAndThing() {
+        EventBus.getDefault().unregister(this);
+    }
 
+    @Subscribe
+    public void changeInfo(LogonEvent event) {
+        if (App.getInstance().user != null) {
+            tvName_layout_user_header_a.setText(App.getInstance().user.getName());
+            Glide.with(this).load(App.getInstance().user.getImage())
+                    .dontAnimate()
+                    .into(iv_icon_layout_user_header_a);
+        }
     }
 }

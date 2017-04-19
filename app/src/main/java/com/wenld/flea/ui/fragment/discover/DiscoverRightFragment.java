@@ -11,10 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.wenld.commontools.StringUtils;
 import com.wenld.flea.R;
 import com.wenld.flea.bean.Goods;
 import com.wenld.flea.common.SType;
@@ -26,8 +23,6 @@ import com.zhy.adapter.recyclerview.base.ViewHolder;
 import com.zhy.adapter.recyclerview.wrapper.EmptyWrapper;
 
 import java.util.ArrayList;
-
-import static com.wenld.flea.common.SType.TYPE_BUY;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,26 +54,20 @@ public class DiscoverRightFragment extends Fragment implements SwipeRefreshLayou
 
     void initView() {
         data = new ArrayList<>();
-        data.add(new Goods("美梦", 18, "想求购一张学姐水果的席梦思", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher, TYPE_BUY, "1108888",false));
-        data.add(new Goods("学姐", 18, "想求购一张学姐水果的席梦思", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_BUY, "1108888",false));
-        data.add(new Goods("美梦", 18, "想求购一张学姐水果的席梦思", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_BUY, "1108888",false));
-        data.add(new Goods("美梦", 18, "想求购一张学姐水果的席梦思", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher, TYPE_BUY, "1108888",false));
-        data.add(new Goods("美梦", 18, "想求购一张学姐水果的席梦思", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher, TYPE_BUY, "1108888",false));
-        data.add(new Goods("美梦", 18, "想求购一张学姐水果的席梦思", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_BUY, "1108888",false));
 
         adapter = new CommonAdapter<Goods>(getContext(), R.layout.list_discover_emption, data) {
             @Override
             protected void convert(ViewHolder holder, Goods user, int position) {
 
-                ImageView imageView = holder.getView(R.id.dis_right_sd);
-                Glide.with(holder.getConvertView().getContext()).load(user.getPic_location()).placeholder(R.mipmap.timg)
-                        .dontAnimate()
-                        .into(imageView);
-
-                holder.setText(R.id.dis_right_classify, String.format(getString(R.string.qiugou), StringUtils.processNullStr(user.getTitle())));
-                holder.setText(R.id.dis_right_describe, user.getDescribe());
-                holder.setText(R.id.dis_right_author, user.getUser_id());
-                holder.setText(R.id.textView_purchase_time, user.getTime());
+//                ImageView imageView = holder.getView(R.id.dis_right_sd);
+//                Glide.with(holder.getConvertView().getContext()).load(user.getPic_location()).placeholder(R.mipmap.timg)
+//                        .dontAnimate()
+//                        .into(imageView);
+//
+//                holder.setText(R.id.dis_right_classify, String.format(getString(R.string.qiugou), StringUtils.processNullStr(user.getTitle())));
+//                holder.setText(R.id.dis_right_describe, user.getDescribe());
+//                holder.setText(R.id.dis_right_author, user.getUser_id());
+//                holder.setText(R.id.textView_purchase_time, user.getTime());
 
             }
         };

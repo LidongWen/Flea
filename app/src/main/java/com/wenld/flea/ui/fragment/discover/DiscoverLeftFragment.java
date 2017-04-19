@@ -15,9 +15,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.wenld.commontools.FastJsonUtil;
 import com.wenld.flea.R;
 import com.wenld.flea.bean.Goods;
 import com.wenld.flea.bean.User;
+import com.wenld.flea.common.BaseApiCallback;
+import com.wenld.flea.common.ESApi;
 import com.wenld.flea.common.SType;
 import com.wenld.flea.ui.DetailActivity;
 import com.wenld.flea.view.AutoRecycleDevider;
@@ -28,13 +31,11 @@ import com.zhy.adapter.recyclerview.wrapper.EmptyWrapper;
 
 import java.util.ArrayList;
 
-import static com.wenld.flea.common.SType.TYPE_SELL;
-
 
 public class DiscoverLeftFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     RecyclerView recyclerView;
     SwipeRefreshLayout mSwipeLayout;
-    ArrayList<Goods> data = new ArrayList<>();
+    ArrayList<Goods> dataList = new ArrayList<>();
     CommonAdapter adapter;
     EmptyWrapper emptyWrapper;
 
@@ -56,24 +57,18 @@ public class DiscoverLeftFragment extends Fragment implements SwipeRefreshLayout
     }
 
     void initView() {
-        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher, TYPE_SELL, "1108888", false));
-        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_SELL, "1108888", true));
-        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_SELL, "1108888", true));
-        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher, TYPE_SELL, "1108888", false));
-        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher, TYPE_SELL, "1108888", true));
-        data.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_SELL, "1108888", true));
 
-        adapter = new CommonAdapter<Goods>(getContext(), R.layout.list_discover_sale, data) {
+        adapter = new CommonAdapter<Goods>(getContext(), R.layout.list_discover_sale, dataList) {
             @Override
             protected void convert(ViewHolder holder, Goods user, int position) {
                 ImageView imageView = holder.getView(R.id.imageView_discover_left);
-                Glide.with(holder.getConvertView().getContext()).load(user.getPic_Res())
+                Glide.with(holder.getConvertView().getContext()).load(user.getImg())
                         .dontAnimate()
                         .into(imageView);
 
-                holder.setText(R.id.textView_discover_left_author, user.getUser_id());
+                holder.setText(R.id.textView_discover_left_author, user.getUid());
                 holder.setText(R.id.textView_discover_left_description, "描述:" + user.getDescribe());
-                holder.setText(R.id.textView_discover_left_time, "时间：" + user.getTime());
+                holder.setText(R.id.textView_discover_left_time, "时间：" + user.getAddtime());
             }
         };
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, GridLayoutManager.VERTICAL));
@@ -95,6 +90,21 @@ public class DiscoverLeftFragment extends Fragment implements SwipeRefreshLayout
             }
         });
         recyclerView.addItemDecoration(new AutoRecycleDevider(getContext(), LinearLayoutManager.VERTICAL));
+
+
+        ESApi.commodityList("", new BaseApiCallback() {
+            @Override
+            protected void onAPISuccess(String data) {
+                dataList.clear();
+                dataList.addAll(FastJsonUtil.getListObjects(data,Goods.class));
+                emptyWrapper.notifyDataSetChanged();
+            }
+
+            @Override
+            protected void onAPIFailure(String msg) {
+
+            }
+        });
     }
 
     @Override
@@ -109,7 +119,7 @@ public class DiscoverLeftFragment extends Fragment implements SwipeRefreshLayout
     }
 
     //从本地取得数据
-    private ArrayList<User> getData() {
+    private ArrayList<User> getDataList() {
         return null;
     }
     protected void readyGo(Class<?> clazz, Bundle bundle) {

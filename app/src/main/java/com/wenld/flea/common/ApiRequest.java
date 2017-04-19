@@ -102,15 +102,21 @@ public class ApiRequest {
     }
 
 
-    /**
-     * 描述:上传
-     * Created by Vamoose on 2016/2/17.
-     */
-    public static void uploadAPI(String url, String uploadName, Map<String, String> headers, File file, EngineCallBack callback) {
+    public static void uploadAPI(String url, String uploadName, Map<String, String> params, File file, EngineCallBack callback) {
+        instance.post()
+                .addFile(uploadName, file.getName(), file)
+                .url(url)
+                .params(params)
+                .build()
+                .execute(callback);
+    }
+
+    public static void uploadAPI(String url, String uploadName, Map<String, String> headers, Map<String, String> params, File file, EngineCallBack callback) {
         instance.post()
                 .addFile(uploadName, file.getName(), file)
                 .url(url)
                 .headers(headers)
+                .params(params)
                 .build()
                 .execute(callback);
     }

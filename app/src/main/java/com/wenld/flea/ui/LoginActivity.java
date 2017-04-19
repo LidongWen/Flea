@@ -1,18 +1,23 @@
 package com.wenld.flea.ui;
 
 import android.support.v7.widget.AppCompatButton;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.wenld.commontools.FastJsonUtil;
+import com.wenld.commontools.SPUtils;
 import com.wenld.flea.App;
 import com.wenld.flea.R;
 import com.wenld.flea.base.BaseActivity;
 import com.wenld.flea.bean.User;
 import com.wenld.flea.common.BaseApiCallback;
 import com.wenld.flea.common.ESApi;
+import com.wenld.flea.common.SType;
+import com.wenld.flea.ui.fragment.more.LogonEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import static com.wenld.flea.R.id.btn_login;
 import static com.wenld.flea.R.id.input_email;
@@ -37,7 +42,9 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
+        _emailText.setText((String) SPUtils.get(LoginActivity.this, SType.Logon_file, SType.Logon_no, ""));
+        _passwordText.setText((String) SPUtils.get(LoginActivity.this, SType.Logon_file, SType.Logon_pwd, ""));
+//        login();
     }
 
     String email;
@@ -51,43 +58,33 @@ public class LoginActivity extends BaseActivity {
 
         _loginButton.setEnabled(false);
 
-//        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
-//                R.style.AppTheme_Dark_Dialog);
-//        progressDialog.setIndeterminate(true);
-//        progressDialog.setMessage("Authenticating...");
-//        progressDialog.show();
-
         email = _emailText.getText().toString();
         password = _passwordText.getText().toString();
 
-// TODO: 2017/3/9  登录
-        User user=new User(""+R.mipmap.ic_launcher,"wenld","wenld");
-        App.getInstance().user=user;// FastJsonUtil.getObject(data,User.class);
-        onLoginSuccess();
-//        ESApi.logon(email, password, new BaseApiCallback() {
-//            @Override
-//            protected void onAPISuccess(String data) {
-//                try {
-//                    SPUtils.put(LoginActivity.this, SType.Logon_file, SType.Logon_no, email);
-//                    SPUtils.put(LoginActivity.this, SType.Logon_file, SType.Logon_pwd, password);
-//                    App.getInstance().user= FastJsonUtil.getObject(data,User.class);
-//                    onLoginSuccess();
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//
-//                }
-//            }
-//
-//            @Override
-//            protected void onAPIFailure(String msg) {
-//                onLoginFailed();
-//            }
-//        });
+        ESApi.logon(email, password, new BaseApiCallback() {
+            @Override
+            protected void onAPISuccess(String data) {
+                try {
+                    SPUtils.put(LoginActivity.this, SType.Logon_file, SType.Logon_no, email);
+                    SPUtils.put(LoginActivity.this, SType.Logon_file, SType.Logon_pwd, password);
+                    App.getInstance().user = FastJsonUtil.getObject(data, User.class);
+                    onLoginSuccess();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            protected void onAPIFailure(String msg) {
+                onLoginFailed();
+            }
+        });
     }
 
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
+        EventBus.getDefault().post(new LogonEvent());
         finish();
     }
 
@@ -102,8 +99,8 @@ public class LoginActivity extends BaseActivity {
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        if (email.isEmpty() ) {
-            _emailText.setError("enter a valid user_id");
+        if (email.isEmpty()) {
+            _emailText.setError("不能为空");
             valid = false;
         } else {
             _emailText.setError(null);
@@ -146,46 +143,6 @@ public class LoginActivity extends BaseActivity {
                 login();
             }
         });
-
-        _signupLink.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if(validate()) {
-                    ESApi.account("admin","admin","admin","10111111111", new BaseApiCallback() {
-                        @Override
-                        protected void onAPISuccess(String data) {
-
-                        }
-
-                        @Override
-                        protected void onAPIFailure(String msg) {
-
-                        }
-                    });
-                }else{
-
-                }
-            }
-        });
     }
 
-    private void submit() {
-        // validate
-        String email = _emailText.getText().toString().trim();
-        if (TextUtils.isEmpty(email)) {
-            Toast.makeText(this, "Email", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String password = _passwordText.getText().toString().trim();
-        if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "Password", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // TODO validate success, do something
-
-
-    }
 }

@@ -20,15 +20,11 @@ public class VpAdapter extends FragmentPagerAdapter {
     ArrayList<Fragment> data = new ArrayList<>();
 
     DiscoverLeftFragment fgLeft;
-    DiscoverRightFragment fgRight;
 
     public VpAdapter(FragmentManager fm) {
         super(fm);
         fgLeft = new DiscoverLeftFragment();
-        fgRight = new DiscoverRightFragment();
-
         data.add(fgLeft);
-        data.add(fgRight);
     }
 
     @Override
@@ -38,7 +34,7 @@ public class VpAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return data.size();
     }
 
     @Override

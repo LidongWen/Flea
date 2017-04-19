@@ -16,7 +16,6 @@ import com.zhy.http.okhttp.callback.Callback;
 import com.zhy.http.okhttp.request.RequestCall;
 
 import java.io.File;
-import java.lang.reflect.ParameterizedType;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -128,7 +127,7 @@ public class ZhyHttpEngine implements IHttpEngine {
 
             @Override
             public void onResponse(String response, int id) {
-                callback.onResponse(FastJsonUtil.getObject(response, (Class<?>) ((ParameterizedType) (callback.getClass().getGenericSuperclass())).getActualTypeArguments()[0]), id);
+                callback.onResponse(FastJsonUtil.getObject(response, BaseDataModel.class), id);
             }
         });
     }
@@ -155,7 +154,8 @@ public class ZhyHttpEngine implements IHttpEngine {
 
 
     @NonNull
-    private Callback<String> getCallback(final EngineCallBack callback) {
+    private Callback<String> getCallback(EngineCallBack callback) {
+        final BaseApiCallback baseApiCallback = (BaseApiCallback) callback;
         return new Callback<String>() {
             @Override
             public String parseNetworkResponse(Response response, int id) throws Exception {
@@ -164,12 +164,12 @@ public class ZhyHttpEngine implements IHttpEngine {
 
             @Override
             public void onError(Call call, Exception e, int id) {
-                callback.onError(e, id);
+                baseApiCallback.onError(e, id);
             }
 
             @Override
             public void onResponse(String response, int id) {
-                callback.onResponse(FastJsonUtil.getObject(response, (Class<?>) ((ParameterizedType) (callback.getClass().getGenericSuperclass())).getActualTypeArguments()[0]), id);
+                baseApiCallback.onResponse(FastJsonUtil.getObject(response, BaseDataModel.class/*(Class<?>) ((ParameterizedType) (baseApiCallback.getClass().getGenericSuperclass())).getActualTypeArguments()[0]*/), id);
             }
         };
     }

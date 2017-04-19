@@ -11,13 +11,13 @@ import com.wenld.commontools.StringUtils;
 public abstract class BaseApiCallback extends EngineCallBack<BaseDataModel> {
 
     @Override
-    public void onError( Exception e, int id) { //客户端异常
-//        onClientError(request + e.toString());
+    public void onError(Exception e, int id) { //客户端异常
+        onAPIFailure(e.toString());
     }
 
     @Override
     public void onResponse(BaseDataModel response, int id) {
-        if (response == null ) {
+        if (response == null) {
             onClientError("接口返回异常");
             return;
         }

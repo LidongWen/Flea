@@ -15,12 +15,18 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.luck.picture.lib.model.FunctionConfig;
 import com.luck.picture.lib.model.LocalMediaLoader;
 import com.luck.picture.lib.model.PictureConfig;
+import com.wenld.baselib.http.HttpUtils;
+import com.wenld.baselib.http.builder.PostHttpBuilder;
+import com.wenld.flea.App;
 import com.wenld.flea.R;
 import com.wenld.flea.base.BaseActivity;
 import com.wenld.flea.base.DefaultNavigationBar;
+import com.wenld.flea.common.BaseApiCallback;
 import com.yalantis.ucrop.entity.LocalMedia;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import kr.co.namee.permissiongen.PermissionFail;
@@ -111,32 +117,74 @@ public class SaleActivity extends BaseActivity {
      * @param view
      */
     public void clickSure(View view) {
-//        title = editTextTitle.getText().toString();
-//        price = editTextPrice.getText().toString();
-//        contact = editTextContact.getText().toString();
-//        describe = editTextDescribe.getText().toString();
+        title = editTextTitle.getText().toString();
+        price = editTextPrice.getText().toString();
+        contact = editTextContact.getText().toString();
+        describe = editTextDescribe.getText().toString();
+        if (selectedMedia != null && selectedMedia.size() > 0) {
+            file = new File(selectedMedia.get(0).getPath());
+        } else {
+            file = null;
+        }
+        if (title != null && price != null && contact != null && describe != null) {
+            HashMap<String, String> paramsMap = new HashMap<>();
+
+
+            paramsMap.put("uid", App.getInstance().user.getId() + "");
+            paramsMap.put("title", title);
+            paramsMap.put("price", price);
+            paramsMap.put("describe", describe);
+            paramsMap.put("classify", classify);
+            paramsMap.put("contact", contact);
+            paramsMap.put("img", "");
+//            instance.post()
+//                    .addFile(uploadName, file.getName(), file)
+//                    .url("http://wanghong.magic-future.com/addgoods.php")
+//                    .params(paramsMap)
+//                    .build()
+//                    .execute(callback);
+            PostHttpBuilder postHttpBuilder = HttpUtils.getInstance().post()
+                    .url("http://wanghong.magic-future.com/addgoods.php");
+            if (file != null) {
+                postHttpBuilder.addFile(file.getName(), file.getName(), file);
+            }
+            postHttpBuilder.params(paramsMap)
+                    .build()
+                    .execute(new BaseApiCallback() {
+                        @Override
+                        protected void onAPISuccess(String data) {
+                            Toast.makeText(SaleActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+
+                        @Override
+                        protected void onAPIFailure(String msg) {
+
+                        }
+                    });
+//            ApiRequest.postAPI("http://wanghong.magic-future.com/addgoods.php", paramsMap, baseApiCallback);
 //
-//        if (title != null && price != null && contact != null && describe != null && file != null) {
-//            HashMap<String, String> map = new HashMap<>();
-//            map.put("title", title);
-//            map.put("price", price);
-//            map.put("contact", contact);
-//            map.put("describe", describe);
-//            map.put("classify", classify);
-//            map.put("user_id", userID);
 //
+//            ESApi.upload(title, price, describe, classify, contact, new BaseApiCallback() {
+//                @Override
+//                protected void onAPISuccess(String data) {
+//                    Toast.makeText(SaleActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
+//                    finish();
+//                }
 //
-////            UploadImpl.getInstance(this).addGoods(file, map, true);
-////
-////            //发网络请求(出售物品)
-////            NetQueryImpl.getInstance(this).getSaleGoods();
+//                @Override
+//                protected void onAPIFailure(String msg) {
 //
+//                }
+//            });
+
+
 //            Toast.makeText(SaleActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
 //            finish();
-//
-//        } else {
-//            Toast.makeText(SaleActivity.this, "不能为空", Toast.LENGTH_SHORT).show();
-//        }
+
+        } else {
+            Toast.makeText(SaleActivity.this, "不能为空", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -164,11 +212,13 @@ public class SaleActivity extends BaseActivity {
 //
         if (selectedMedia != null && selectedMedia.size() != 0) {
             selectedMedia.clear();
+        }else{
+            selectedMedia=new ArrayList<>();
         }
         FunctionConfig config = new FunctionConfig();
         config.setType(LocalMediaLoader.TYPE_IMAGE);
         config.setCopyMode(COPY_MODEL_1_1);
-        config.setCompress(false); //是否压缩
+        config.setCompress(true); //是否压缩
         config.setMaxSelectNum(1); //最大可选数量
 //        config.setSelectMode(MODE_MULTIPLE);
         config.setSelectMode(MODE_SINGLE);
@@ -195,7 +245,7 @@ public class SaleActivity extends BaseActivity {
     private PictureConfig.OnSelectResultCallback resultCallback = new PictureConfig.OnSelectResultCallback() {
         @Override
         public void onSelectSuccess(List<LocalMedia> resultList) {
-            selectedMedia = resultList;
+            selectedMedia.addAll(resultList);
             if (selectedMedia != null) {
                 Glide.with(SaleActivity.this).load(selectedMedia.get(0).getPath()).dontAnimate().into(imageView);
             }

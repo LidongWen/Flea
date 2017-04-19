@@ -119,7 +119,7 @@ public class ClassifyFragment extends Fragment {
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), ListActivity.class);
                         intent.putExtra("name", listTitle.get(getAdapterPosition()));
-                        intent.putExtra("classify", getAdapterPosition()+"");
+                        intent.putExtra("classify", getAdapterPosition() + "");
                         startActivity(intent);
                     }
                 });
