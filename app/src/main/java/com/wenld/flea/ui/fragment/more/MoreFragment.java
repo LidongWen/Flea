@@ -106,7 +106,11 @@ public class MoreFragment extends BaseLazyFragment {
             tvName_layout_user_header_a.setText(App.getInstance().user.getName());
             Glide.with(this).load(App.getInstance().user.getImage())
                     .dontAnimate()
+                    .placeholder(R.mipmap.ic_launcher)
                     .into(iv_icon_layout_user_header_a);
+        } else {
+            tvName_layout_user_header_a.setText("请登录");
+            iv_icon_layout_user_header_a.setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
         }
     }
 }
