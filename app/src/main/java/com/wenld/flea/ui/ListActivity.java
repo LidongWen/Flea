@@ -14,7 +14,7 @@ import com.wenld.flea.R;
 import com.wenld.flea.base.BaseActivity;
 import com.wenld.flea.base.DefaultNavigationBar;
 import com.wenld.flea.bean.Goods;
-import com.wenld.flea.common.BaseApiCallback;
+import com.wenld.flea.common.CallBackBaseData;
 import com.wenld.flea.common.ESApi;
 import com.wenld.flea.common.SType;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -38,7 +38,7 @@ public class ListActivity extends BaseActivity {
     @Override
     protected void initData() {
 
-        ESApi.commodityList(classify, new BaseApiCallback() {
+        ESApi.commodityList(classify, new CallBackBaseData() {
             @Override
             protected void onAPISuccess(String data) {
                 dataList.clear();

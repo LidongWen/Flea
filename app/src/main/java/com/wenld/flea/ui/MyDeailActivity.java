@@ -6,6 +6,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -16,7 +18,7 @@ import com.wenld.flea.aop.LogonPermission;
 import com.wenld.flea.base.BaseActivity;
 import com.wenld.flea.base.DefaultNavigationBar;
 import com.wenld.flea.bean.Goods;
-import com.wenld.flea.common.BaseApiCallback;
+import com.wenld.flea.common.CallBackBaseData;
 import com.wenld.flea.common.ESApi;
 import com.wenld.flea.common.SType;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -40,7 +42,7 @@ public class MyDeailActivity extends BaseActivity {
     @Override
     protected void initData() {
 
-        ESApi.getMyGoods(new BaseApiCallback() {
+        ESApi.getMyGoods(new CallBackBaseData() {
             @Override
             protected void onAPISuccess(String data) {
                 dataList.clear();
@@ -69,12 +71,12 @@ public class MyDeailActivity extends BaseActivity {
 
         recyclerView_aty_list = (RecyclerView) findViewById(R.id.recyclerView_aty_list);
 
-        recyclerView_aty_list.setLayoutManager(new StaggeredGridLayoutManager(2, GridLayoutManager.VERTICAL));
+        recyclerView_aty_list.setLayoutManager(new StaggeredGridLayoutManager(1, GridLayoutManager.VERTICAL));
         recyclerView_aty_list.setItemAnimator(new DefaultItemAnimator());
         adapter = new CommonAdapter<Goods>(this, R.layout.list_collect, dataList) {
             @Override
-            protected void convert(ViewHolder holder, Goods user, final int position) {
-
+            protected void convert(ViewHolder holder, final Goods user, final int position) {
+                CheckBox cb_aty_detail = holder.getView(R.id.cb_aty_detail);
                 ImageView imageView = holder.getView(R.id.imageView_home);
                     Glide.with(holder.getConvertView().getContext()).load(user.getImg())
                             .dontAnimate()
@@ -82,6 +84,24 @@ public class MyDeailActivity extends BaseActivity {
 
                 holder.setText(R.id.textView_name, dataList.get(position).getTitle());
                 holder.setText(R.id.textView_price, String.format(getString(R.string.price_money), StringUtils.processNullStr(dataList.get(position).getPrice() + "")));
+
+                cb_aty_detail.setOnCheckedChangeListener(null);
+                cb_aty_detail.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        ESApi.statusGood(user.getId(), isChecked ? "1" : "0", new CallBackBaseData() {
+                            @Override
+                            protected void onAPISuccess(String data) {
+
+                            }
+
+                            @Override
+                            protected void onAPIFailure(String msg) {
+
+                            }
+                        });
+                    }
+                });
             }
         };
 

@@ -34,14 +34,12 @@
         android:layout_below="@+id/imageView7"
         android:layout_toEndOf="@+id/textView20"
         android:hint="一缕阳光"
-        android:text="一缕阳光"
         android:layout_toRightOf="@+id/textView20"
         android:textColor="@color/black_h" />
 
     <EditText
         android:id="@+id/textView23_edit_sale_price"
         android:hint="19"
-        android:text="19"
         android:layout_width="70dp"
         android:inputType="number"
         android:layout_height="wrap_content"
@@ -68,7 +66,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="手机18234567411"
-        android:text="手机18234567411"
         android:layout_below="@+id/spinner_edit_sale"
         android:layout_marginTop="18dp"
         android:layout_toRightOf="@+id/textView24"
@@ -95,7 +92,6 @@
         android:layout_below="@+id/textView25_edit_sale_contact"
         android:layout_marginRight="10dp"
         android:hint="在漆黑的世界，一缕阳光是多么重要"
-        android:text="在漆黑的世界，一缕阳光是多么重要"
         android:layout_marginTop="15dp"
         android:layout_toEndOf="@+id/textView28"
         android:layout_toRightOf="@+id/textView28"

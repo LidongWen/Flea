@@ -63,6 +63,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
 }
 greendao {
     targetGenDir 'src/main/java'
@@ -80,7 +85,7 @@ dependencies {
     compile 'com.github.LidongWen:AdapterValue:1.0.0'
     compile 'com.github.LidongWen:commonTools:1.2.1'
     compile 'com.github.LidongWen:PullRefresh:1.0.0'
-    compile 'com.github.LidongWen:BaseLibrary:1.0.4'
+//    compile 'com.github.LidongWen:BaseLibrary:1.0.5'
     compile 'com.github.LidongWen:DataBaseUpdate:1.0.1'
 
     compile 'org.greenrobot:eventbus:3.0.0'
@@ -108,4 +113,7 @@ dependencies {
 
 //    classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
     compile 'com.github.TEENSTITAN.PictureSelector:picture_library:v1.0.3'
+
+    compile(name:'baselib-release', ext:'aar')
+
 }

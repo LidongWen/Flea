@@ -1,14 +1,43 @@
 package com.wenld.flea.common;
 
+import com.wenld.baselib.http.HttpUtils;
 import com.wenld.baselib.http.callback.EngineCallBack;
+import com.wenld.commontools.FastJsonUtil;
 import com.wenld.commontools.LogUtil;
 import com.wenld.commontools.StringUtils;
+
+import okhttp3.Response;
 
 
 /**
  * Created by Wenld on 2016/06/27.
  */
-public abstract class BaseApiCallback extends EngineCallBack<BaseDataModel> {
+public abstract class CallBackBaseData extends EngineCallBack<BaseDataModel> {
+    BaseDataModel dataModel;
+
+    @Override
+    public BaseDataModel parseNetworkResponse(Object o, final int id) throws Exception {
+
+        Response response = (Response) o;
+        try {
+            dataModel = FastJsonUtil.getObject(response.body().string(), BaseDataModel.class);
+        } catch (final Exception e) {
+            HttpUtils.getInstance().getDelivery().execute(new Runnable() {
+                @Override
+                public void run() {
+                    onError(e, id);
+                }
+            });
+            return null;
+        }
+        HttpUtils.getInstance().getDelivery().execute(new Runnable() {
+            @Override
+            public void run() {
+                onResponse(dataModel, id);
+            }
+        });
+        return dataModel;
+    }
 
     @Override
     public void onError(Exception e, int id) { //客户端异常

@@ -18,7 +18,7 @@ import com.wenld.flea.aop.LogonPermission;
 import com.wenld.flea.base.BaseActivity;
 import com.wenld.flea.base.DefaultNavigationBar;
 import com.wenld.flea.bean.Goods;
-import com.wenld.flea.common.BaseApiCallback;
+import com.wenld.flea.common.CallBackBaseData;
 import com.wenld.flea.common.ESApi;
 import com.wenld.flea.common.SType;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -49,7 +49,7 @@ public class CollectionActivity extends BaseActivity {
 //        dataList.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.ic_launcher, TYPE_SELL, "1108888",true));
 //        dataList.add(new Goods("学长的台灯", 18, "九成新，这个东西好呀，经过学长几百个日日夜夜的培育，沾有文化气息", "wenld", "1", "2017-03-10", R.mipmap.test, TYPE_SELL, "1108888",true));
 //
-        ESApi.getCollectGoods(new BaseApiCallback() {
+        ESApi.getCollectGoods(new CallBackBaseData() {
             @Override
             protected void onAPISuccess(String data) {
                 dataList.clear();

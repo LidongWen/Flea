@@ -9,7 +9,7 @@ import android.widget.Toast;
 import com.wenld.flea.R;
 import com.wenld.flea.base.BaseActivity;
 import com.wenld.flea.base.DefaultNavigationBar;
-import com.wenld.flea.common.BaseApiCallback;
+import com.wenld.flea.common.CallBackBaseData;
 import com.wenld.flea.common.ESApi;
 
 /**
@@ -103,7 +103,7 @@ public class RegisteredActivity extends BaseActivity implements View.OnClickList
             return;
         }
 
-        ESApi.account(email, password, nicheng, tel, new BaseApiCallback() {
+        ESApi.account(email, password, nicheng, tel, new CallBackBaseData() {
             @Override
             protected void onAPISuccess(String data) {
                 Toast.makeText(RegisteredActivity.this, "注册成功", Toast.LENGTH_SHORT).show();

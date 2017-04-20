@@ -4,8 +4,6 @@ import android.net.Uri;
 
 import com.wenld.baselib.http.HttpUtils;
 import com.wenld.baselib.http.callback.EngineCallBack;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.Callback;
 
 import java.io.File;
 import java.util.Iterator;
@@ -38,17 +36,6 @@ public class ApiRequest {
         String content = ApiRequest.UrlBuide(Judgeurl(url), params);
         instance.post()
                 .url(content)
-                .build()
-                .execute(callback);
-    }
-
-    /**
-     * 描述:普通get请求
-     * Created by Vamoose on 2016/2/17.
-     */
-    public static void getAPI(String url, Callback callback) {
-        OkHttpUtils.get()
-                .url(url)
                 .build()
                 .execute(callback);
     }

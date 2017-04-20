@@ -21,8 +21,11 @@ import com.wenld.flea.App;
 import com.wenld.flea.R;
 import com.wenld.flea.base.BaseActivity;
 import com.wenld.flea.base.DefaultNavigationBar;
-import com.wenld.flea.common.BaseApiCallback;
+import com.wenld.flea.common.CallBackBaseData;
+import com.wenld.flea.ui.fragment.home.DataEvent;
 import com.yalantis.ucrop.entity.LocalMedia;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -111,6 +114,8 @@ public class SaleActivity extends BaseActivity {
         });
     }
 
+    public boolean isLoading = false;
+
     /**
      * 点击提交
      *
@@ -126,7 +131,7 @@ public class SaleActivity extends BaseActivity {
         } else {
             file = null;
         }
-        if (title != null && price != null && contact != null && describe != null) {
+        if (!"".equals(title) && !"".equals(price) && !"".equals(contact) && !"".equals(describe)) {
             HashMap<String, String> paramsMap = new HashMap<>();
 
 
@@ -148,24 +153,32 @@ public class SaleActivity extends BaseActivity {
             if (file != null) {
                 postHttpBuilder.addFile(file.getName(), file.getName(), file);
             }
-            postHttpBuilder.params(paramsMap)
-                    .build()
-                    .execute(new BaseApiCallback() {
-                        @Override
-                        protected void onAPISuccess(String data) {
-                            Toast.makeText(SaleActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
+            if (!isLoading) {
+                isLoading = true;
+                postHttpBuilder.params(paramsMap)
+                        .build()
+                        .execute(new CallBackBaseData() {
+                            @Override
+                            protected void onAPISuccess(String data) {
+                                Toast.makeText(SaleActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
+                                EventBus.getDefault().post(new DataEvent());
+                                isLoading = false;
+                                finish();
+                            }
 
-                        @Override
-                        protected void onAPIFailure(String msg) {
+                            @Override
+                            protected void onAPIFailure(String msg) {
+                                isLoading = false;
+                            }
+                        });
 
-                        }
-                    });
+            } else {
+
+            }
 //            ApiRequest.postAPI("http://wanghong.magic-future.com/addgoods.php", paramsMap, baseApiCallback);
 //
 //
-//            ESApi.upload(title, price, describe, classify, contact, new BaseApiCallback() {
+//            ESApi.upload(title, price, describe, classify, contact, new CallBackBaseData() {
 //                @Override
 //                protected void onAPISuccess(String data) {
 //                    Toast.makeText(SaleActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
@@ -212,8 +225,8 @@ public class SaleActivity extends BaseActivity {
 //
         if (selectedMedia != null && selectedMedia.size() != 0) {
             selectedMedia.clear();
-        }else{
-            selectedMedia=new ArrayList<>();
+        } else {
+            selectedMedia = new ArrayList<>();
         }
         FunctionConfig config = new FunctionConfig();
         config.setType(LocalMediaLoader.TYPE_IMAGE);

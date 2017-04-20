@@ -19,15 +19,19 @@ import com.wenld.commontools.FastJsonUtil;
 import com.wenld.flea.R;
 import com.wenld.flea.bean.Goods;
 import com.wenld.flea.bean.User;
-import com.wenld.flea.common.BaseApiCallback;
+import com.wenld.flea.common.CallBackBaseData;
 import com.wenld.flea.common.ESApi;
 import com.wenld.flea.common.SType;
 import com.wenld.flea.ui.DetailActivity;
+import com.wenld.flea.ui.fragment.home.DataEvent;
 import com.wenld.flea.view.AutoRecycleDevider;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 import com.zhy.adapter.recyclerview.wrapper.EmptyWrapper;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
@@ -54,6 +58,7 @@ public class DiscoverLeftFragment extends Fragment implements SwipeRefreshLayout
         recyclerView = (RecyclerView) view.findViewById(R.id.recycle_discover_left);
 
         initView();
+        EventBus.getDefault().register(this);
     }
 
     void initView() {
@@ -91,31 +96,20 @@ public class DiscoverLeftFragment extends Fragment implements SwipeRefreshLayout
         });
         recyclerView.addItemDecoration(new AutoRecycleDevider(getContext(), LinearLayoutManager.VERTICAL));
 
+        updateDate(null);
 
-        ESApi.commodityList("", new BaseApiCallback() {
-            @Override
-            protected void onAPISuccess(String data) {
-                dataList.clear();
-                dataList.addAll(FastJsonUtil.getListObjects(data,Goods.class));
-                emptyWrapper.notifyDataSetChanged();
-            }
-
-            @Override
-            protected void onAPIFailure(String msg) {
-
-            }
-        });
     }
 
     @Override
     public void onDestroy() {
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
     @Override
     public void onRefresh() {
         //开始网络请求
-        mSwipeLayout.setRefreshing(false);
+        updateDate(null);
     }
 
     //从本地取得数据
@@ -129,5 +123,23 @@ public class DiscoverLeftFragment extends Fragment implements SwipeRefreshLayout
         }
 
         this.startActivity(intent);
+    }
+
+    @Subscribe
+    public void updateDate(DataEvent event){
+     ESApi.commodityList("", new CallBackBaseData() {
+            @Override
+            protected void onAPISuccess(String data) {
+                dataList.clear();
+                dataList.addAll(FastJsonUtil.getListObjects(data,Goods.class));
+                emptyWrapper.notifyDataSetChanged();
+                mSwipeLayout.setRefreshing(false);
+            }
+
+            @Override
+            protected void onAPIFailure(String msg) {
+                mSwipeLayout.setRefreshing(false);
+            }
+        });
     }
 }

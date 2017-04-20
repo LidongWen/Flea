@@ -39,6 +39,13 @@
             android:layout_marginLeft="@dimen/value_20"
             android:layout_toRightOf="@+id/tv_title_aty_detail"
             android:button="@drawable/check_collect" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/open"
+            android:text="发布"
+            android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
     <TextView

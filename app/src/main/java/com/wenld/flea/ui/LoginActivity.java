@@ -12,7 +12,7 @@ import com.wenld.flea.App;
 import com.wenld.flea.R;
 import com.wenld.flea.base.BaseActivity;
 import com.wenld.flea.bean.User;
-import com.wenld.flea.common.BaseApiCallback;
+import com.wenld.flea.common.CallBackBaseData;
 import com.wenld.flea.common.ESApi;
 import com.wenld.flea.common.SType;
 import com.wenld.flea.ui.fragment.more.LogonEvent;
@@ -61,7 +61,7 @@ public class LoginActivity extends BaseActivity {
         email = _emailText.getText().toString();
         password = _passwordText.getText().toString();
 
-        ESApi.logon(email, password, new BaseApiCallback() {
+        ESApi.logon(email, password, new CallBackBaseData() {
             @Override
             protected void onAPISuccess(String data) {
                 try {
