@@ -35,6 +35,7 @@ public class PermissionTest {
         if (App.getInstance().user != null) {
             return joinPoint.proceed();
         }
+//        joinPoi
         if (Fragment.class.isInstance(joinPoint.getTarget())) {
             startLoginActivity(((Fragment) joinPoint.getTarget()).getContext());
             return "";

@@ -126,7 +126,7 @@ public class ZhyHttpEngine implements IHttpEngine {
         {
 
         }
-        // 使用 zhy
+        // 使用 zhy 处理存储file
         return new com.zhy.http.okhttp.callback.FileCallBack(finalCallBack.destFileDir, finalCallBack.destFileName) {
 //            @Override
 //            public File parseNetworkResponse(Response response,final int id) throws Exception {
