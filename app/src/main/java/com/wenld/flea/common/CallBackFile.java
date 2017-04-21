@@ -29,14 +29,14 @@ public abstract class CallBackFile extends FileCallBack {
     @Override
     public File parseNetworkResponse(Object response, final int id) throws Exception {
 
-        final File file = saveFile((Response) response, id);
-        HttpUtils.getInstance().getDelivery().execute(new Runnable() {
-            @Override
-            public void run() {
-                onResponse(file, id);
-            }
-        });
-        return file;
+//        final File file = saveFile((Response) response, id);
+//        HttpUtils.getInstance().getDelivery().execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                onResponse(file, id);
+//            }
+//        });
+        return null;
     }
 
 

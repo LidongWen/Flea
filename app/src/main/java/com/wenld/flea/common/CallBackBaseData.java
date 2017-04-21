@@ -1,6 +1,5 @@
 package com.wenld.flea.common;
 
-import com.wenld.baselib.http.HttpUtils;
 import com.wenld.baselib.http.callback.EngineCallBack;
 import com.wenld.commontools.FastJsonUtil;
 import com.wenld.commontools.LogUtil;
@@ -19,23 +18,9 @@ public abstract class CallBackBaseData extends EngineCallBack<BaseDataModel> {
     public BaseDataModel parseNetworkResponse(Object o, final int id) throws Exception {
 
         Response response = (Response) o;
-        try {
+
             dataModel = FastJsonUtil.getObject(response.body().string(), BaseDataModel.class);
-        } catch (final Exception e) {
-            HttpUtils.getInstance().getDelivery().execute(new Runnable() {
-                @Override
-                public void run() {
-                    onError(e, id);
-                }
-            });
-            return null;
-        }
-        HttpUtils.getInstance().getDelivery().execute(new Runnable() {
-            @Override
-            public void run() {
-                onResponse(dataModel, id);
-            }
-        });
+
         return dataModel;
     }
 

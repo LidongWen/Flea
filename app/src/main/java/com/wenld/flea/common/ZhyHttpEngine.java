@@ -4,8 +4,10 @@ package com.wenld.flea.common;
 import android.support.annotation.NonNull;
 import android.support.v4.util.ArrayMap;
 
+import com.wenld.baselib.http.HttpUtils;
 import com.wenld.baselib.http.builder.FileInput;
 import com.wenld.baselib.http.callback.EngineCallBack;
+import com.wenld.baselib.http.callback.FileCallBack;
 import com.wenld.baselib.http.httpEngine.IHttpEngine;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.builder.PostFormBuilder;
@@ -46,8 +48,12 @@ public class ZhyHttpEngine implements IHttpEngine {
         RequestCall requestCall = instance.post().url(url)
                 .params(params)
                 .build();
-
-        requestCall.execute(getCallback(callback));
+        if (FileCallBack.class.isInstance(callback)) {
+            final FileCallBack finalCallBack = (FileCallBack) callback;
+            requestCall.execute(getFileCallBack(finalCallBack));
+        } else {
+            requestCall.execute(getCallback(callback));
+        }
 
     }
 
@@ -57,8 +63,12 @@ public class ZhyHttpEngine implements IHttpEngine {
                 .url(url)
                 .params(params)
                 .build();
-
-        requestCall.execute(getCallback(callback));
+        if (FileCallBack.class.isInstance(callback)) {
+            final FileCallBack finalCallBack = (FileCallBack) callback;
+            requestCall.execute(getFileCallBack(finalCallBack));
+        } else {
+            requestCall.execute(getCallback(callback));
+        }
 
     }
 
@@ -74,8 +84,12 @@ public class ZhyHttpEngine implements IHttpEngine {
                 .headers(headers)
                 .params(params)
                 .build();
-
-        requestCall.execute(getCallback(callback));
+        if (FileCallBack.class.isInstance(callback)) {
+            final FileCallBack finalCallBack = (FileCallBack) callback;
+            requestCall.execute(getFileCallBack(finalCallBack));
+        } else {
+            requestCall.execute(getCallback(callback));
+        }
 
     }
 
@@ -106,16 +120,67 @@ public class ZhyHttpEngine implements IHttpEngine {
         requestCall.execute(getCallback(callback));
     }
 
+    @NonNull
+    private com.zhy.http.okhttp.callback.FileCallBack getFileCallBack(final FileCallBack finalCallBack) {
+        //自己处理存储 file
+        {
+
+        }
+        // 使用 zhy
+        return new com.zhy.http.okhttp.callback.FileCallBack(finalCallBack.destFileDir, finalCallBack.destFileName) {
+//            @Override
+//            public File parseNetworkResponse(Response response,final int id) throws Exception {
+////                finalCallBack.parseNetworkResponse(response,id);      //这边
+//                        final File file = saveFile((Response) response, id);
+//        HttpUtils.getInstance().getDelivery().execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                onResponse(file, id);
+//            }
+//        });
+//                return super.parseNetworkResponse(response, id);
+//            }
+
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                finalCallBack.onError(e, id);
+            }
+
+            @Override
+            public void onResponse(File response, int id) {
+                finalCallBack.onResponse(response, id);
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) {
+                finalCallBack.inProgress(progress, total, id);
+            }
+        };
+    }
 
     @NonNull
     private Callback<String> getCallback(final EngineCallBack callback) {
-
-
         return new Callback<String>() {
             @Override
-            public String parseNetworkResponse(Response response, int id) throws Exception {
-                callback.parseNetworkResponse(response, id);
-
+            public String parseNetworkResponse(Response response, final int id) throws Exception {
+                final Object data;
+                try {
+                    data = callback.parseNetworkResponse(response, id);
+                } catch (final Exception e) {
+                    HttpUtils.getInstance().getDelivery().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            callback.onError(e, id);
+                        }
+                    });
+                    return null;
+                }
+                HttpUtils.getInstance().getDelivery().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onResponse(data, id);
+                    }
+                });
                 return response.body().toString();
             }
 
