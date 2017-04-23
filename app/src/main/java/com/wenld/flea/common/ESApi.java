@@ -3,6 +3,7 @@ package com.wenld.flea.common;
 
 import com.wenld.baselib.http.callback.EngineCallBack;
 import com.wenld.flea.App;
+import com.wenld.flea.aop.LogonPermission;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -114,6 +115,7 @@ public class ESApi {
      *
      * @param callBackBaseData
      */
+    @LogonPermission(toLogon = false)
     public static void addCollect(String gid, CallBackBaseData callBackBaseData) {
         Map<String, String> paramsMap = new HashMap<>();
 //        paramsMap.put("controller", "user");
@@ -128,6 +130,7 @@ public class ESApi {
      *
      * @param callBackBaseData
      */
+    @LogonPermission(toLogon = false)
     public static void cancelCollect(String gid, CallBackBaseData callBackBaseData) {
         Map<String, String> paramsMap = new HashMap<>();
 //        paramsMap.put("controller", "user");
@@ -143,6 +146,7 @@ public class ESApi {
      * @param status ，0为关闭，1为开启
      * @param callBackBaseData
      */
+    @LogonPermission(toLogon = false)
     public  static void statusGood(String gid,String status ,CallBackBaseData callBackBaseData){
         Map<String, String> paramsMap = new HashMap<>();
 //        paramsMap.put("controller", "user");

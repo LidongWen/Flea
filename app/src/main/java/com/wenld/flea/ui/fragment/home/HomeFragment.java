@@ -4,6 +4,7 @@ package com.wenld.flea.ui.fragment.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -40,6 +41,7 @@ public class HomeFragment extends BaseLazyFragment {
 
     RecyclerView recyclerView;
     EmptyWrapper emptyWrapper;
+    SwipeRefreshLayout mSwipeLayout;
     CommonAdapter adapter;
     ArrayList<Goods> dataList = new ArrayList<>();
     ImageView imageView;
@@ -56,7 +58,15 @@ public class HomeFragment extends BaseLazyFragment {
     protected void initViewsAndEvents(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_home);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, GridLayoutManager.VERTICAL));
+        mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.srl_dis_left);
+        mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateDate(null);
+            }
+        });
 
+        mSwipeLayout.setColorSchemeResources(R.color.colorAccent, R.color.green_m, R.color.red_m);
 
         adapter = new CommonAdapter<Goods>(getContext(), R.layout.list_home, dataList) {
             @Override
@@ -115,7 +125,6 @@ public class HomeFragment extends BaseLazyFragment {
                 return false;
             }
         });
-        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -131,11 +140,12 @@ public class HomeFragment extends BaseLazyFragment {
                 dataList.clear();
                 dataList.addAll(FastJsonUtil.getListObjects(data, Goods.class));
                 emptyWrapper.notifyDataSetChanged();
+                mSwipeLayout.setRefreshing(false);
             }
 
             @Override
             protected void onAPIFailure(String msg) {
-
+                mSwipeLayout.setRefreshing(false);
             }
         });
 

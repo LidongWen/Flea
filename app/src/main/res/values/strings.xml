@@ -14,4 +14,8 @@
     <string name="price_money">价格 ：￥ %1$s</string>
     <string name="lianxifanshi">联系方式 ： %1$s</string>
     <string name="qiugou">[求购:%1$S]</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.wenld.flea.App;
 import com.wenld.flea.ui.LoginActivity;
@@ -13,6 +14,9 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
+
+import java.lang.annotation.Annotation;
 
 /**
  * <p/>
@@ -35,7 +39,20 @@ public class PermissionTest {
         if (App.getInstance().user != null) {
             return joinPoint.proceed();
         }
-//        joinPoi
+        LogonPermission logonpermission=null;
+        MethodSignature signature= (MethodSignature) joinPoint.getSignature();
+        Annotation[] annotations=signature.getMethod().getAnnotations();
+        for(Annotation annotation1:annotations){
+            if(LogonPermission.class.isInstance(annotation1))
+            {
+                logonpermission = (com.wenld.flea.aop.LogonPermission) annotation1;
+                break;
+            }
+        }
+        if(!logonpermission.toLogon()){
+            Toast.makeText(App.getInstance(),"请先登录",Toast.LENGTH_LONG).show();
+            return null;
+        }
         if (Fragment.class.isInstance(joinPoint.getTarget())) {
             startLoginActivity(((Fragment) joinPoint.getTarget()).getContext());
             return "";

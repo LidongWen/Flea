@@ -181,7 +181,7 @@ public class ZhyHttpEngine implements IHttpEngine {
                         callback.onResponse(data, id);
                     }
                 });
-                return response.body().toString();
+                return response.body().string();
             }
 
             @Override

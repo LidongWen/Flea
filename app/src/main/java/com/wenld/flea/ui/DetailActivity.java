@@ -16,6 +16,9 @@ import com.wenld.flea.bean.Goods;
 import com.wenld.flea.common.CallBackBaseData;
 import com.wenld.flea.common.ESApi;
 import com.wenld.flea.common.SType;
+import com.wenld.flea.ui.fragment.home.DataEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by wenld on 2017/3/12.
@@ -79,7 +82,7 @@ public class DetailActivity extends BaseActivity {
                 ESApi.statusGood(goods.getId(), isChecked ? "1" : "0", new CallBackBaseData() {
                     @Override
                     protected void onAPISuccess(String data) {
-
+                        EventBus.getDefault().post(new DataEvent());
                     }
 
                     @Override

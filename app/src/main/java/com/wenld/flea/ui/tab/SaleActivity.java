@@ -151,7 +151,7 @@ public class SaleActivity extends BaseActivity {
             PostHttpBuilder postHttpBuilder = HttpUtils.getInstance().post()
                     .url("http://wanghong.magic-future.com/addgoods.php");
             if (file != null) {
-                postHttpBuilder.addFile(file.getName(), file.getName(), file);
+                postHttpBuilder.addFile(file.getName(), "img", file);
             }
             if (!isLoading) {
                 isLoading = true;

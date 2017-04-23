@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.wenld.commontools.FastJsonUtil;
 import com.wenld.commontools.StringUtils;
+import com.wenld.flea.App;
 import com.wenld.flea.R;
 import com.wenld.flea.aop.LogonPermission;
 import com.wenld.flea.base.BaseActivity;
@@ -21,10 +22,13 @@ import com.wenld.flea.bean.Goods;
 import com.wenld.flea.common.CallBackBaseData;
 import com.wenld.flea.common.ESApi;
 import com.wenld.flea.common.SType;
+import com.wenld.flea.ui.fragment.home.DataEvent;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 import com.zhy.adapter.recyclerview.wrapper.EmptyWrapper;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -75,24 +79,33 @@ public class MyDeailActivity extends BaseActivity {
         recyclerView_aty_list.setItemAnimator(new DefaultItemAnimator());
         adapter = new CommonAdapter<Goods>(this, R.layout.list_collect, dataList) {
             @Override
-            protected void convert(ViewHolder holder, final Goods user, final int position) {
+            protected void convert(ViewHolder holder, final Goods good, final int position) {
                 CheckBox cb_aty_detail = holder.getView(R.id.cb_aty_detail);
                 ImageView imageView = holder.getView(R.id.imageView_home);
-                    Glide.with(holder.getConvertView().getContext()).load(user.getImg())
+                    Glide.with(holder.getConvertView().getContext()).load(good.getImg())
                             .dontAnimate()
                             .into(imageView);
 
                 holder.setText(R.id.textView_name, dataList.get(position).getTitle());
                 holder.setText(R.id.textView_price, String.format(getString(R.string.price_money), StringUtils.processNullStr(dataList.get(position).getPrice() + "")));
 
+
+                if (App.getInstance().user != null) {
+                    cb_aty_detail.setChecked(App.getInstance().user.getId().equals(good.getUid()));
+                    cb_aty_detail.setVisibility(View.VISIBLE);
+                    cb_aty_detail.setChecked("1".equals(good.getStatus()));
+                } else {
+                    cb_aty_detail.setVisibility(View.GONE);
+                }
+
                 cb_aty_detail.setOnCheckedChangeListener(null);
                 cb_aty_detail.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        ESApi.statusGood(user.getId(), isChecked ? "1" : "0", new CallBackBaseData() {
+                        ESApi.statusGood(good.getId(), isChecked ? "1" : "0", new CallBackBaseData() {
                             @Override
                             protected void onAPISuccess(String data) {
-
+                                EventBus.getDefault().post(new DataEvent());
                             }
 
                             @Override
