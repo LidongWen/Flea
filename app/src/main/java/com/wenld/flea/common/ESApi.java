@@ -34,6 +34,7 @@ public class ESApi {
 //        paramsMap.put("controller", "user");
         paramsMap.put("method", "list");
         paramsMap.put("page", "1");
+        paramsMap.put("uid", App.getInstance().user==null?"": App.getInstance().user.getId() + "");
         paramsMap.put("num", "100");
         paramsMap.put("order", "time");
         paramsMap.put("by", "up");

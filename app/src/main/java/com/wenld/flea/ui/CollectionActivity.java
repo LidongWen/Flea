@@ -84,7 +84,8 @@ public class CollectionActivity extends BaseActivity {
             protected void convert(ViewHolder holder, Goods user, final int position) {
 
                 CheckBox checkBox = holder.getView(R.id.cb_aty_detail);
-                checkBox.setChecked("1".equals(user.getStatus()));
+                checkBox.setOnCheckedChangeListener(null);
+                checkBox.setChecked("1".equals(user.getSc()));
                 ImageView imageView = holder.getView(R.id.imageView_home);
 
                 Glide.with(holder.getConvertView().getContext()).load(user.getImg())
@@ -102,6 +103,7 @@ public class CollectionActivity extends BaseActivity {
                 });
                 holder.setText(R.id.textView_name, dataList.get(position).getTitle());
                 holder.setText(R.id.textView_price, String.format(getString(R.string.price_money), StringUtils.processNullStr(dataList.get(position).getPrice() + "")));
+
             }
         };
 

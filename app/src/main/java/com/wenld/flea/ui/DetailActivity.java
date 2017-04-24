@@ -5,6 +5,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.wenld.commontools.StringUtils;
@@ -47,14 +48,69 @@ public class DetailActivity extends BaseActivity {
         tv_title_aty_detail.setText(StringUtils.processNullStr(goods.getTitle()));
         tv_memo_aty_detail.setText(StringUtils.processNullStr(goods.getDescribe()));
         tv_link_aty_detail.setText(String.format(getString(R.string.lianxifanshi), StringUtils.processNullStr(goods.getContact() + "")));
-        cb_de.setChecked("1".equals(goods.getStatus()));
+        cb_de.setChecked("1".equals(goods.getSc()));
         if (App.getInstance().user != null) {
             open.setChecked(App.getInstance().user.getId().equals(goods.getUid()));
             open.setVisibility(View.VISIBLE);
             open.setChecked("1".equals(goods.getStatus()));
+            open.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    ESApi.statusGood(goods.getId(), isChecked ? "1" : "0", new CallBackBaseData() {
+                        @Override
+                        protected void onAPISuccess(String data) {
+                            EventBus.getDefault().post(new DataEvent());
+                        }
+
+                        @Override
+                        protected void onAPIFailure(String msg) {
+
+                        }
+                    });
+                }
+            });
+
+            cb_de.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (App.getInstance().user == null) {
+                        Toast.makeText(getApplicationContext(), "请先登录", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (isChecked) {
+                        ESApi.addCollect(goods.getId(), new CallBackBaseData() {
+                            @Override
+                            protected void onAPISuccess(String data) {
+                                EventBus.getDefault().post(new DataEvent());
+                            }
+
+                            @Override
+                            protected void onAPIFailure(String msg) {
+
+                            }
+                        });
+                        return;
+                    } else {
+                        ESApi.cancelCollect(goods.getId(), new CallBackBaseData() {
+                            @Override
+                            protected void onAPISuccess(String data) {
+                                EventBus.getDefault().post(new DataEvent());
+                            }
+
+                            @Override
+                            protected void onAPIFailure(String msg) {
+
+                            }
+                        });
+                    }
+                }
+            });
+
         } else {
             open.setVisibility(View.GONE);
         }
+
+
     }
 
     @Override
@@ -74,24 +130,10 @@ public class DetailActivity extends BaseActivity {
         this.tv_link_aty_detail = (TextView) findViewById(R.id.tv_link_aty_detail);
         this.tv_memo_aty_detail = (TextView) findViewById(R.id.tv_memo_aty_detail);
         cb_de = (CheckBox) findViewById(R.id.cb_de);
+
+
         open = (CheckBox) findViewById(R.id.open);
 
-        open.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                ESApi.statusGood(goods.getId(), isChecked ? "1" : "0", new CallBackBaseData() {
-                    @Override
-                    protected void onAPISuccess(String data) {
-                        EventBus.getDefault().post(new DataEvent());
-                    }
-
-                    @Override
-                    protected void onAPIFailure(String msg) {
-
-                    }
-                });
-            }
-        });
     }
 
     @Override

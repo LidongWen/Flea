@@ -30,6 +30,13 @@ public class Goods implements Serializable {
     private String contact;
     private String addtime;
     private String status;
+    /**
+     * sc : 0
+     * uname : admin
+     */
+
+    private int sc;
+    private String uname;
 
     public String getId() {
         return id;
@@ -109,5 +116,21 @@ public class Goods implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public int getSc() {
+        return sc;
+    }
+
+    public void setSc(int sc) {
+        this.sc = sc;
+    }
+
+    public String getUname() {
+        return uname;
+    }
+
+    public void setUname(String uname) {
+        this.uname = uname;
     }
 }

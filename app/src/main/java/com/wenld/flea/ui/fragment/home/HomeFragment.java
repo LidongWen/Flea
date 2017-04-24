@@ -12,11 +12,13 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.wenld.baselib.fragment.BaseLazyFragment;
 import com.wenld.commontools.FastJsonUtil;
 import com.wenld.commontools.StringUtils;
+import com.wenld.flea.App;
 import com.wenld.flea.R;
 import com.wenld.flea.bean.Goods;
 import com.wenld.flea.common.CallBackBaseData;
@@ -79,19 +81,45 @@ public class HomeFragment extends BaseLazyFragment {
 //                            .dontAnimate()
 //                            .into(imageView);
 //                else {
+
                 Glide.with(holder.getConvertView().getContext()).load(user.getImg())
                         .dontAnimate()
                         .into(imageView);
 //                }
                 cb_aty_detail.setOnCheckedChangeListener(null);
+                cb_aty_detail.setChecked("1".equals(user.getSc()));
                 cb_aty_detail.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (App.getInstance().user == null) {
+                            Toast.makeText(getContext(), "请先登录", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         if (isChecked) {
-                            ESApi.addCollect(user.getId(), null);
+                            ESApi.addCollect(user.getId(), new CallBackBaseData() {
+                                @Override
+                                protected void onAPISuccess(String data) {
+                                    EventBus.getDefault().post(new DataEvent());
+                                }
+
+                                @Override
+                                protected void onAPIFailure(String msg) {
+
+                                }
+                            });
                             return;
                         } else {
-                            ESApi.cancelCollect(user.getId(), null);
+                            ESApi.cancelCollect(user.getId(), new CallBackBaseData() {
+                                @Override
+                                protected void onAPISuccess(String data) {
+                                    EventBus.getDefault().post(new DataEvent());
+                                }
+
+                                @Override
+                                protected void onAPIFailure(String msg) {
+
+                                }
+                            });
                         }
                     }
                 });
