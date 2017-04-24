@@ -107,7 +107,13 @@ public class ZhyHttpEngine implements IHttpEngine {
     @Override
     public void uploadAPI(String url, Map<String, String> params, Map<String, String> headers, List<FileInput> files, final EngineCallBack callback) {
 
-        PostFormBuilder builder = instance.post().url(url).headers(headers).params(params);
+        PostFormBuilder builder = instance.post().url(url);
+        if (headers != null) {
+            builder.headers(headers);
+        }
+        if (params != null) {
+            builder.params(params);
+        }
         if (files != null && files.size() > 0) {
             String key = files.get(0).key;
             Map<String, File> filess = new ArrayMap<>();

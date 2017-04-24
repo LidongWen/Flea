@@ -19,6 +19,7 @@ import com.wenld.flea.aop.LogonPermission;
 import com.wenld.flea.base.BaseActivity;
 import com.wenld.flea.base.DefaultNavigationBar;
 import com.wenld.flea.bean.Goods;
+import com.wenld.flea.common.AppConfig;
 import com.wenld.flea.common.CallBackBaseData;
 import com.wenld.flea.common.ESApi;
 import com.wenld.flea.common.SType;
@@ -82,7 +83,7 @@ public class MyDeailActivity extends BaseActivity {
             protected void convert(ViewHolder holder, final Goods good, final int position) {
                 CheckBox cb_aty_detail = holder.getView(R.id.cb_aty_detail);
                 ImageView imageView = holder.getView(R.id.imageView_home);
-                    Glide.with(holder.getConvertView().getContext()).load(good.getImg())
+                    Glide.with(holder.getConvertView().getContext()).load(AppConfig.img_url+good.getImg())
                             .dontAnimate()
                             .into(imageView);
 

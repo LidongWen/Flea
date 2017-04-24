@@ -5,6 +5,7 @@ import com.wenld.baselib.http.callback.EngineCallBack;
 import com.wenld.flea.App;
 import com.wenld.flea.aop.LogonPermission;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -85,6 +86,19 @@ public class ESApi {
         ApiRequest.postAPI("http://wanghong.magic-future.com/loginaction.php", paramsMap, baseApiCallback);
     }
 
+    /**
+     * 修改信息
+     * @param baseApiCallback
+     */
+    public static void modify(File file, EngineCallBack baseApiCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+//        paramsMap.put("controller", "user");
+        paramsMap.put("method", "modify");
+        paramsMap.put("id", App.getInstance().user.getId() + "");
+        paramsMap.put("un",  App.getInstance().user.getName());
+        paramsMap.put("tel", App.getInstance().user.getPhone());
+        ApiRequest.uploadAPI("http://wanghong.magic-future.com/loginaction.php","img", paramsMap,file, baseApiCallback);
+    }
     /**
      * 获取我的商品
      *

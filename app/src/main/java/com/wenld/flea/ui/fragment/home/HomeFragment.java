@@ -21,6 +21,7 @@ import com.wenld.commontools.StringUtils;
 import com.wenld.flea.App;
 import com.wenld.flea.R;
 import com.wenld.flea.bean.Goods;
+import com.wenld.flea.common.AppConfig;
 import com.wenld.flea.common.CallBackBaseData;
 import com.wenld.flea.common.ESApi;
 import com.wenld.flea.common.SType;
@@ -82,7 +83,7 @@ public class HomeFragment extends BaseLazyFragment {
 //                            .into(imageView);
 //                else {
 
-                Glide.with(holder.getConvertView().getContext()).load(user.getImg())
+                Glide.with(holder.getConvertView().getContext()).load(AppConfig.img_url + user.getImg())
                         .dontAnimate()
                         .into(imageView);
 //                }

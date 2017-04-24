@@ -16,5 +16,6 @@ public class AppConfig {
     public static final String SUCCESS_CODE = "0";
     public static final String REALESE_URL = "https://app.qipai.com/qiyun/index.php";
     public static String URL = REALESE_URL;//"http://61.131.48.180:11380/";
+    public static final String img_url="http://wanghong.magic-future.com/uploads/images/";
 
 }

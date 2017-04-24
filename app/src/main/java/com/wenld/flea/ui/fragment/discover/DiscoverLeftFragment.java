@@ -19,6 +19,7 @@ import com.wenld.commontools.FastJsonUtil;
 import com.wenld.flea.R;
 import com.wenld.flea.bean.Goods;
 import com.wenld.flea.bean.User;
+import com.wenld.flea.common.AppConfig;
 import com.wenld.flea.common.CallBackBaseData;
 import com.wenld.flea.common.ESApi;
 import com.wenld.flea.common.SType;
@@ -67,7 +68,7 @@ public class DiscoverLeftFragment extends Fragment implements SwipeRefreshLayout
             @Override
             protected void convert(ViewHolder holder, Goods user, int position) {
                 ImageView imageView = holder.getView(R.id.imageView_discover_left);
-                Glide.with(holder.getConvertView().getContext()).load(user.getImg())
+                Glide.with(holder.getConvertView().getContext()).load(AppConfig.img_url+user.getImg())
                         .dontAnimate()
                         .into(imageView);
 

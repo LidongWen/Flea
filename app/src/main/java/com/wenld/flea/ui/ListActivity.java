@@ -14,6 +14,7 @@ import com.wenld.flea.R;
 import com.wenld.flea.base.BaseActivity;
 import com.wenld.flea.base.DefaultNavigationBar;
 import com.wenld.flea.bean.Goods;
+import com.wenld.flea.common.AppConfig;
 import com.wenld.flea.common.CallBackBaseData;
 import com.wenld.flea.common.ESApi;
 import com.wenld.flea.common.SType;
@@ -76,7 +77,7 @@ public class ListActivity extends BaseActivity {
 
                 ImageView imageView = holder.getView(R.id.imageView_home);
 
-                    Glide.with(holder.getConvertView().getContext()).load(user.getImg())
+                    Glide.with(holder.getConvertView().getContext()).load(AppConfig.img_url+user.getImg())
                             .dontAnimate()
                             .into(imageView);
                 holder.setText(R.id.textView_name, dataList.get(position).getTitle());

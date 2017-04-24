@@ -35,7 +35,7 @@ public class Goods implements Serializable {
      * uname : admin
      */
 
-    private int sc;
+    private String sc;
     private String uname;
 
     public String getId() {
@@ -118,11 +118,11 @@ public class Goods implements Serializable {
         this.status = status;
     }
 
-    public int getSc() {
+    public String getSc() {
         return sc;
     }
 
-    public void setSc(int sc) {
+    public void setSc(String sc) {
         this.sc = sc;
     }
 

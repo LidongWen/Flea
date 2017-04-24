@@ -14,6 +14,7 @@ import com.wenld.flea.R;
 import com.wenld.flea.base.BaseActivity;
 import com.wenld.flea.base.DefaultNavigationBar;
 import com.wenld.flea.bean.Goods;
+import com.wenld.flea.common.AppConfig;
 import com.wenld.flea.common.CallBackBaseData;
 import com.wenld.flea.common.ESApi;
 import com.wenld.flea.common.SType;
@@ -40,7 +41,7 @@ public class DetailActivity extends BaseActivity {
         goods = (Goods) getIntent().getSerializableExtra(SType.intent_Detail);
         if (goods == null)
             return;
-        Glide.with(this).load(goods.getImg())
+        Glide.with(this).load(AppConfig.img_url+goods.getImg())
                 .dontAnimate()
                 .into(iv_aty_detail);
 
