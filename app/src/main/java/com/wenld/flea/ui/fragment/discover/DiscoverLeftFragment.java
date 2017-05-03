@@ -72,7 +72,7 @@ public class DiscoverLeftFragment extends Fragment implements SwipeRefreshLayout
                         .dontAnimate()
                         .into(imageView);
 
-                holder.setText(R.id.textView_discover_left_author, user.getUid());
+                holder.setText(R.id.textView_discover_left_author, user.getUname());
                 holder.setText(R.id.textView_discover_left_description, "描述:" + user.getDescribe());
                 holder.setText(R.id.textView_discover_left_time, "时间：" + user.getAddtime());
             }
